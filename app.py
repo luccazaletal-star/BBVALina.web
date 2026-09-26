@@ -96,11 +96,6 @@ def init_db():
 
 init_db()
 
-app = Flask(__name__)
-app.secret_key = 'clave_super_secreta_bbva_lina'
-
-LLAVE_CORRECTA = 'LINA2026'
-
 @app.route('/', methods=['GET', 'POST'])
 def acceso_portal():
     error = None
