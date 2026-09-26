@@ -13,8 +13,7 @@ def connect_db(env_var_name, local_file):
         conn = libsql.connect(database=url, auth_token=TURSO_TOKEN)
     else:
         conn = sqlite3.connect(local_file)
-    
-    conn.row_factory = sqlite3.Row
+        conn.row_factory = sqlite3.Row
     return conn
 
 def get_db_usr():
