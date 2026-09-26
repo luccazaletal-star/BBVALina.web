@@ -1,75 +1,80 @@
+import os
 import sqlite3
+import libsql_experimental as libsql
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 import random
 import datetime
 
-conn_usr = sqlite3.connect("bdd_usr.db")
-cursor_usr = conn_usr.cursor()
-conn_empl = sqlite3.connect("bdd_empl.db")
-cursor_empl = conn_empl.cursor()
-conn_trans = sqlite3.connect("bdd_trans.db")
-cursor_trans = conn_trans.cursor()
-conn_oper = sqlite3.connect("bdd_oper.db")
-cursor_oper = conn_oper.cursor()
-conn_admin = sqlite3.connect("bdd_admin.db")
-cursor_admin = conn_admin.cursor()
+TURSO_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJrUXJJVTdsYkVmR0R1MDdXRWFlUHR3Iiwib3JnX2lkIjoxMDAwMjU0OTI1fQ.99DQb5qxBvVo89tLkDMp5rNocpjQ9IJYQtyIZ3hQs3NEIIJ5e7aXovy6HVDM59iKWgrdRjYAtooIYAkn0dWBBg")
 
-cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_usr(ID TEXT PRIMARY KEY, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT, edad INTEGER, curp TEXT, calle TEXT, numcalle TEXT, colonia TEXT, ciudad TEXT, estado TEXT, CP TEXT, detalles TEXT, saldo REAL)")
-cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_tar_usr(numtaj TEXT, fechavenc TEXT, cvv TEXT, clabe TEXT, saldo REAL, ID TEXT)")
-cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_tdc_usr(ID TEXT, numtaj TEXT, fechavenc TEXT, cvv TEXT, nombre_compl TEXT, sald_fav REAL, sald_contr REAL, exist INTEGER)")
+def connect_db(env_var_name, local_file):
+    url = os.environ.get(env_var_name)
+    if url and TURSO_TOKEN:
+        conn = libsql.connect(database=url, auth_token=TURSO_TOKEN)
+    else:
+        conn = sqlite3.connect(local_file)
+    
+    conn.row_factory = sqlite3.Row
+    return conn
 
-cursor_empl.execute("CREATE TABLE IF NOT EXISTS tabla_emp(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT)")
-cursor_empl.execute("CREATE TABLE IF NOT EXISTS tabla_tdc_emp(ID TEXT, nombre_compl TEXT, ingresos_men TEXT, ocupacion TEXT, numtaj TEXT, fechavenc TEXT, credito REAL, status TEXT, razon TEXT)")
+def get_db_usr():
+    return connect_db("TURSO_USR_URL", "bdd_usr.db")
 
-cursor_trans.execute("CREATE TABLE IF NOT EXISTS tabla_trans(ID TEXT, transmont REAL, transdest TEXT, transfech TEXT, transconc TEXT)")
+def get_db_trans():
+    return connect_db("TURSO_TRANS_URL", "bdd_trans.db")
 
-cursor_oper.execute("CREATE TABLE IF NOT EXISTS tabla_oper(calle TEXT, numcalle TEXT, colonia TEXT, ciudad TEXT, estado TEXT, CP TEXT, detalles TEXT, nombre_cli TEXT)")
-cursor_oper.execute("CREATE TABLE IF NOT EXISTS tabla_oper_id(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT, empresa TEXT)")
+def get_db_oper():
+    return connect_db("TURSO_OPER_URL", "bdd_oper.db")
 
-cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_admin(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT)")
-cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_ger_emp(ID TEXT, contr TEXT, nombre_compl TEXT)")
-cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_ger_oper(ID TEXT, contr TEXT, nombre_compl TEXT)")
+def get_db_empl():
+    return connect_db("TURSO_EMPL_URL", "bdd_empl.db")
 
-conn_usr.commit()
-conn_usr.close()
-conn_admin.commit()
-conn_admin.close()
-conn_empl.commit()
-conn_empl.close()
-conn_trans.commit()
-conn_trans.close()
-conn_oper.commit()
-conn_oper.close()
+def get_db_admin():
+    return connect_db("TURSO_ADMIN_URL", "bdd_admin.db")
+
+def init_db():
+    conn_usr = get_db_usr()
+    cursor_usr = conn_usr.cursor()
+    cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_usr(ID TEXT PRIMARY KEY, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT, edad INTEGER, curp TEXT, calle TEXT, numcalle TEXT, colonia TEXT, ciudad TEXT, estado TEXT, CP TEXT, detalles TEXT, saldo REAL)")
+    cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_tar_usr(numtaj TEXT, fechavenc TEXT, cvv TEXT, clabe TEXT, saldo REAL, ID TEXT)")
+    cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_tdc_usr(ID TEXT, numtaj TEXT, fechavenc TEXT, cvv TEXT, nombre_compl TEXT, sald_fav REAL, sald_contr REAL, exist INTEGER)")
+    conn_usr.commit()
+    conn_usr.close()
+
+    conn_empl = get_db_empl()
+    cursor_empl = conn_empl.cursor()
+    cursor_empl.execute("CREATE TABLE IF NOT EXISTS tabla_emp(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT)")
+    cursor_empl.execute("CREATE TABLE IF NOT EXISTS tabla_tdc_emp(ID TEXT, nombre_compl TEXT, ingresos_men TEXT, ocupacion TEXT, numtaj TEXT, fechavenc TEXT, credito REAL, status TEXT, razon TEXT)")
+    conn_empl.commit()
+    conn_empl.close()
+
+    conn_trans = get_db_trans()
+    cursor_trans = conn_trans.cursor()
+    cursor_trans.execute("CREATE TABLE IF NOT EXISTS tabla_trans(ID TEXT, transmont REAL, transdest TEXT, transfech TEXT, transconc TEXT)")
+    conn_trans.commit()
+    conn_trans.close()
+
+    conn_oper = get_db_oper()
+    cursor_oper = conn_oper.cursor()
+    cursor_oper.execute("CREATE TABLE IF NOT EXISTS tabla_oper(calle TEXT, numcalle TEXT, colonia TEXT, ciudad TEXT, estado TEXT, CP TEXT, detalles TEXT, nombre_cli TEXT)")
+    cursor_oper.execute("CREATE TABLE IF NOT EXISTS tabla_oper_id(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT, empresa TEXT)")
+    conn_oper.commit()
+    conn_oper.close()
+
+    conn_admin = get_db_admin()
+    cursor_admin = conn_admin.cursor()
+    cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_admin(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT)")
+    cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_ger_emp(ID TEXT, contr TEXT, nombre_compl TEXT)")
+    cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_ger_oper(ID TEXT, contr TEXT, nombre_compl TEXT)")
+    conn_admin.commit()
+    conn_admin.close()
+
+init_db()
 
 app = Flask(__name__)
 app.secret_key = 'clave_super_secreta_bbva_lina'
 
 LLAVE_CORRECTA = 'LINA2026'
-
-def get_db_usr():
-    conn = sqlite3.connect('bdd_usr.db')
-    conn.row_factory = sqlite3.Row  
-    return conn
-
-def get_db_trans():
-    conn = sqlite3.connect('bdd_trans.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def get_db_oper():
-    conn = sqlite3.connect('bdd_oper.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def get_db_empl():
-    conn = sqlite3.connect('bdd_empl.db')
-    conn.row_factory = sqlite3.Row
-    return conn
-
-def get_db_admin():
-    conn = sqlite3.connect('bdd_admin.db')
-    conn.row_factory = sqlite3.Row
-    return conn
 
 @app.route('/', methods=['GET', 'POST'])
 def acceso_portal():

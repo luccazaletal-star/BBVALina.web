@@ -26,12 +26,13 @@
         header {
             background-color: #ffffff; 
             color: white;
-            padding: 0rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             margin: 1.5rem;
+            border-radius: 8px;
         }
 
         header h1 {
@@ -44,6 +45,13 @@
             color: #28a745; 
             font-weight: 800;
         }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         .btn-salir {
             background-color: #d9534f;
             color: white;
@@ -53,7 +61,6 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: background 0.2s ease;
-            margin-left: 20px;
         }
 
         .btn-salir:hover {
@@ -68,12 +75,13 @@
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: background 1s ease;
+            transition: background 0.3s ease;
         }
 
         .btn-crear_cuenta:hover{
             background-color: #004481;
         }
+
         .btn-acceder{
             background-color: #f4f7f6;
             color: #004481;
@@ -82,16 +90,19 @@
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: background 1s ease;
+            transition: background 0.3s ease;
+            border: 1px solid #dcdcdc;
         }
 
         .btn-acceder:hover{
             background-color: #ffffff;
         }
+
         main {
-            margin: 3rem auto;
+            margin: 1.5rem auto;
             padding: 0 1.5rem;
             width: 100%;
+            max-width: 1200px;
             flex-grow: 1;
         }
 
@@ -103,33 +114,47 @@
             border-top: 1px solid #e1e8ed;
             background: #004481;
         }
-        .logo_header {text-align: left;
+
+        .logo_header {
+            text-align: left;
             width: 150px;
-            margin: 0%;}
-        .banner_lina{text-align: left;
+            margin: 0;
+        }
+
+        .banner_lina{
+            text-align: left;
             font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             background-color: #ffffff;
             color: #004481;
             padding: 2rem 2rem;
             margin-top: 30px;
-            margin-bottom: 60px;
-            margin-left: 0.5cm;
-            margin-right: 0.5cm;
+            margin-bottom: 30px;
             gap: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .banner_img1 img{width: 100%;
-            max-width: 600px;
-            height: 350px;
+
+        .banner_texto {
+            flex: 1;
+        }
+
+        .banner_img1, .banner_img2 {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .banner_img1 img, .banner_img2 img {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
             object-fit: cover;
+            border-radius: 6px;
         }
-        .banner_img2 img{width: 100%;
-            max-width: 600px;
-            padding-left: 4.7rem;
-            height: 350px;
-            object-fit: cover;
-        }
+
         .conocer_mas{
             background-color: #0a7adc;
             color: #f4f7f6;
@@ -138,33 +163,90 @@
             border-radius: 6px;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: background 2s ease;
+            transition: background 0.3s ease;
             display: inline-block;
-            margin-top: 50px;
+            margin-top: 25px;
         }
 
         .conocer_mas:hover{
             background-color: #004481;
         }
-        .banner{
-            text-align: left;
-        }
+
         .conocer{
             background-color: #004481;
             color: #f4f7f6;
             text-decoration: none;
-            padding: 0.6rem 2rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 6px;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 1s ease;
+            font-size: 0.85rem;
+            transition: background 0.3s ease;
             display: inline-block;
-            margin-top: 10px;
-            margin-bottom: 20px;
+            margin: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .conocer:hover{
             background-color: #0a7adc;
+        }
+
+        /* ===================================================
+           REGLAS RESPONSIVAS PARA CELULARES (Móviles)
+           =================================================== */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                margin: 0.8rem;
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+
+            .header-buttons a {
+                width: 100%;
+                text-align: center;
+                margin-left: 0 !important;
+                padding: 0.7rem 1rem;
+            }
+
+            main {
+                padding: 0 0.8rem;
+                margin: 0.5rem auto;
+            }
+
+            .banner_lina {
+                flex-direction: column;
+                padding: 1.5rem 1rem;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                text-align: center;
+                gap: 1.5rem;
+            }
+
+            /* Invierte el orden del segundo banner para que el texto quede arriba de la imagen */
+            .banner_lina:nth-of-type(2) {
+                flex-direction: column-reverse;
+            }
+
+            .banner_img1 img, .banner_img2 img {
+                height: 200px;
+                padding-left: 0 !important; /* Elimina el padding descompensado */
+            }
+
+            .conocer_mas {
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+            }
+
+            footer div {
+                margin-top: 15px;
+            }
         }
     </style>
 </head>
@@ -172,7 +254,7 @@
 
     <header>
         <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
-        <div>
+        <div class="header-buttons">
             <a href="{{url_for('login_cliente')}}" class="btn-acceder">Acceder</a>
             <a href="{{url_for('crear_cuenta')}}" class="btn-crear_cuenta">Hazte Cliente</a>
             <a href="{{ url_for('salir') }}" class="btn-salir">Cerrar Sesión</a>
@@ -190,6 +272,7 @@
                 <img src="{{url_for('static', filename='img/bbvalinatarjeta.png')}}" alt="Tarjeta platino LINA">
             </div>
         </section>
+
         <section class="banner_lina">
             <div class="banner_img2">
                 <img src="{{url_for('static', filename='img/bbvapago.png')}}" alt="Señora pagando con tarjeta TOMIN">
@@ -207,7 +290,7 @@
         <a href="{{url_for('login_admin')}}" class="conocer">Portal Administrativo</a>
         <a href="{{url_for('login_operador')}}" class="conocer">Portal de Operadores</a>
         <div>
-        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+            BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
         </div>
     </footer>
 
