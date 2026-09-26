@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -168,6 +167,40 @@
             margin-left: 0.5cm;
             margin-right: 0.5cm;
             gap: 2rem;           
+        }
+
+        @media (max-width: 700px) {
+            header{
+                padding: 0.8rem 1rem;
+                margin: 1rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            .banner{
+                flex-direction: column;
+            }
+            .banner-princ{
+                max-width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+                padding: 1.5rem;
+            }
+            .banner-sec{
+                width: auto;
+                max-width: 100%;
+                aspect-ratio: unset;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .input-style{
+                margin-right: 0;
+            }
+            .input2{
+                width: 100%;
+            }
+            .text-style{
+                font-size: 1.5rem;
+            }
         }
     </style> 
 </head>

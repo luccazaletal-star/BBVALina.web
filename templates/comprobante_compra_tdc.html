@@ -164,6 +164,54 @@
             background: #004481;
             margin-top: auto;
         }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                margin: 0.75rem;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .logo_header {
+                width: 130px;
+            }
+
+            header > div {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn-volver {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            main {
+                padding: 0.5rem 0.75rem 2rem 0.75rem;
+            }
+
+            .receipt-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .monto-principal {
+                font-size: 1.9rem;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                padding: 10px 0;
+            }
+
+            .detail-value {
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body>

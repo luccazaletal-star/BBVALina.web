@@ -35,6 +35,10 @@
             width: 150px;
             margin: 0;
         }
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
         .btn-volver {
             background-color: #0a7adc;
             color: #f4f7f6;
@@ -44,7 +48,6 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: background 0.3s ease;
-            margin-left: 8px;
         }
         .btn-volver:hover {
             background-color: #004481;
@@ -56,6 +59,7 @@
             max-width: 900px;
             margin: 2rem auto;
             padding: 0 1rem;
+            width: 100%;
         }
         .banner-anuncio {
             background-color: rgba(0, 68, 129, 0.9);
@@ -115,6 +119,7 @@
             font-size: 0.95rem;
             color: #4a5568;
             margin: 0;
+            word-break: break-word;
         }
         .dato-oculto {
             letter-spacing: 2px;
@@ -138,6 +143,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
         .btn-revelar:hover {
             background-color: #0a7adc;
@@ -168,12 +174,57 @@
             margin-top: auto;
             background: #004481;
         }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .logo_header {
+                width: 130px;
+                text-align: center;
+            }
+
+            .header-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+            }
+
+            .btn-volver {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                margin-left: 0;
+            }
+
+            .banner {
+                margin: 1rem auto;
+                padding: 0 0.75rem;
+            }
+
+            .movimiento-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .btn-revelar {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .movimiento-banner {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
-        <div>
+        <div class="header-buttons">
             <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver a BBVA LINA</a>
             <a href="{{ url_for('consultar_cuentas') }}" class="btn-volver">Nueva Consulta</a>
             <a href="{{url_for('dashboard_admin')}}" class="btn-volver">Volver</a>

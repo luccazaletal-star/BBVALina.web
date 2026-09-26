@@ -279,6 +279,44 @@
             background: #004481;
             margin-top: auto;
         }
+        footer {
+            text-align: center;
+            padding: 1.25rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            background: #004481;
+            margin-top: auto;
+        }
+
+        @media (max-width: 600px) {
+            header{
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+                gap: 0.6rem;
+                padding: 0.8rem 1rem;
+            }
+            .header-buttons{
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            main{
+                margin: 1.2rem auto;
+                padding: 0 1rem;
+            }
+            .banner-aviso{
+                padding: 1rem;
+            }
+            .section-header{
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .grid-empleados{
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>

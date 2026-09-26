@@ -309,7 +309,54 @@
         .sidebar-overlay.active {
             display: block;
         }
-    </style> 
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            header{
+                padding: 0.8rem 1rem;
+                margin: 1rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            .banner{
+                flex-direction: column;
+            }
+            .banner-princ{
+                max-width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+                padding: 1.5rem;
+            }
+            .banner-sec{
+                max-width: 100%;
+                max-height: none;
+            }
+            .banner-terc{
+                width: auto;
+                flex: 1;
+                margin-left: 0.3cm;
+                margin-right: 0.3cm;
+            }
+            .btn-opcion{
+                width: 60px;
+                margin-left: 0.3cm;
+                margin-right: 0.3cm;
+                padding: 1.2rem;
+            }
+            .text-style{
+                font-size: 1.5rem;
+            }
+            .text-style2{
+                font-size: 1.1rem;
+            }
+            .sidebar{
+                width: 85%;
+                left: -85%;
+            }
+        }
+    </style>
 </head>
 <body>
 

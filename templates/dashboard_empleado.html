@@ -159,7 +159,43 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style> 
+        @media (max-width: 768px) {
+            .banner-top {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header{
+                padding: 1rem;
+                flex-wrap: wrap;
+                gap: 0.8rem;
+                justify-content: center;
+                text-align: center;
+            }
+            main{
+                padding: 1rem;
+            }
+            .banner-princ, .banner-sec{
+                padding: 1.5rem;
+            }
+            .title-welcome{
+                font-size: 1.4rem;
+            }
+            .grid-acciones{
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 1rem;
+            }
+            .btn-opcion{
+                width: 60px;
+                height: 60px;
+                font-size: 1.2rem;
+            }
+            .label-accion{
+                font-size: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>

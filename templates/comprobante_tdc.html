@@ -34,6 +34,10 @@
         .logo_header {
             width: 150px;
         }
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
         .btn-volver {
             background-color: #0a7adc;
             color: #ffffff;
@@ -164,15 +168,63 @@
             background: #004481;
             margin-top: auto;
         }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                margin: 0.75rem;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .logo_header {
+                width: 130px;
+            }
+
+            .header-buttons {
+                display: flex;
+                gap: 6px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .btn-volver {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            main {
+                padding: 0.5rem 0.75rem 2rem 0.75rem;
+            }
+
+            .receipt-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .monto-principal {
+                font-size: 1.9rem;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                padding: 10px 0;
+            }
+
+            .detail-value {
+                text-align: left;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
-            <div>
-                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
-                <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
-            </div>
+        <div class="header-buttons">
+            <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+            <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
+        </div>
     </header>
 
     <main>

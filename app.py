@@ -357,7 +357,11 @@ def movimientos_cliente():
     conn_trans = get_db_trans()
     try:
         cursor_trans = conn_trans.cursor()
-        cursor_trans.execute("SELECT transmont, transdest, transfech, transconc FROM tabla_trans WHERE ID=?", (session['cliente_id'],))
+        cursor_trans.execute(
+            "SELECT transmont, transdest, transfech, transconc FROM tabla_trans WHERE ID=? "
+            "ORDER BY substr(transfech,7,4) || substr(transfech,4,2) || substr(transfech,1,2) DESC LIMIT 20",
+            (session['cliente_id'],)
+        )
         check_mov = cursor_trans.fetchall()
         movimientos_limpios = [dict(fila) for fila in check_mov]
         session['movimientos_usr'] = movimientos_limpios

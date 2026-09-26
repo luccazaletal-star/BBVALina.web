@@ -56,6 +56,7 @@
             max-width: 900px;
             margin: 2rem auto;
             padding: 0 1rem;
+            width: 100%;
         }
         .banner-anuncio {
             background-color: rgba(0, 68, 129, 0.9);
@@ -105,16 +106,19 @@
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 10px;
             margin-bottom: 6px;
+            gap: 10px;
         }
         .movimiento-titulo {
             font-size: 1.25rem;
             font-weight: 700;
             color: #004481;
+            word-break: break-word;
         }
         .movimiento-concepto {
             font-size: 0.95rem;
             color: #4a5568;
             margin: 0;
+            word-break: break-all;
         }
         .dato-oculto {
             letter-spacing: 2px;
@@ -138,6 +142,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            white-space: nowrap;
         }
         .btn-revelar:hover {
             background-color: #0a7adc;
@@ -167,6 +172,48 @@
             font-size: 0.85rem;
             margin-top: auto;
             background: #004481;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+                text-align: center;
+            }
+            header div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .logo_header {
+                width: 120px;
+                margin: 0 auto;
+            }
+            .btn-volver {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem 1rem;
+                margin-left: 0;
+            }
+            .banner {
+                margin: 1rem auto;
+                padding: 0 0.5rem;
+            }
+            .movimiento-banner {
+                padding: 15px;
+            }
+            .movimiento-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .btn-revelar {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>

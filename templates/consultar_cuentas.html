@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -62,7 +61,7 @@
             margin-top: 30px;
             margin-bottom: 60px;
             margin-left: 0.5cm;
-            margin-right: 0.5px;
+            margin-right: 0.5cm;
             gap: 2rem;   
         }
         .banner-sec{
@@ -107,9 +106,11 @@
             color: #004481;
             font-size: 1.5rem;
             font-weight: 600;
-            margin-right: 500px;
+            margin-right: 0;
             margin-top: 30px;
             margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
         }
         .btn-bbva{
             background-color: #004481;
@@ -118,8 +119,9 @@
             margin-top: 10px;
             font-size: 2rem;
             border: 0px solid #ffffff;
-            padding: 5px;
+            padding: 5px 20px;
             transition: background 0.5s ease;
+            cursor: pointer;
         }
         .btn-bbva:hover{
             background-color: #0a7adc;
@@ -127,10 +129,14 @@
         .input{
             font-size: 1.2rem;
             background-color: #ffffff;
-            border: 0px solid #ffffff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 8px;
+            width: 100%;
         }
         .banner{
-            display: flex;          
+            display: flex;
+            flex-direction: column;
         }
         footer{
             background-color: #004481;
@@ -163,6 +169,63 @@
             margin-left: 0.5cm;
             margin-right: 0.5cm;
             gap: 2rem;           
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+                text-align: center;
+                margin: 1rem;
+            }
+            header div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .logo_header {
+                width: 120px;
+                margin: 0 auto;
+            }
+            .btn-volver {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 0.8rem 1rem;
+            }
+            .banner-princ {
+                margin-left: 1rem;
+                margin-right: 1rem;
+                padding: 1.5rem 1rem;
+                margin-top: 15px;
+                margin-bottom: 30px;
+            }
+            .text-style {
+                font-size: 1.5rem;
+            }
+            .text-style2 {
+                font-size: 1.2rem;
+            }
+            .input-style {
+                margin-right: 0;
+            }
+            .btn-bbva {
+                width: 100%;
+                text-align: center;
+                font-size: 1.5rem;
+            }
+            .banner-sec {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .alert-error {
+                margin-left: 1rem;
+                margin-right: 1rem;
+                padding: 1.5rem 1rem;
+            }
         }
     </style> 
 </head>
@@ -198,6 +261,7 @@
 
             <button type="submit" class="btn-bbva">Buscar</button>
         </form>
+        </div>
     </main>
     <footer>
         <div>
@@ -205,5 +269,4 @@
         </div>
     </footer>
 </body>
-
 </html>
