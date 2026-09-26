@@ -11,6 +11,17 @@ LLAVE_CORRECTA = 'LINA2026'
 
 TURSO_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJnaWQiOiIwZjEzYWMyOC01MzE2LTRlNWEtOTc5Ny04NTZhYjhjZWVkNDAiLCJpYXQiOjE3OTAzOTcxNDEsImtpZCI6IjFvUjltbkNFSTdIaHgtMjNRMm5WbEFINW5LZW5nbUtCcTVLa0UtVnNoZnciLCJyaWQiOiI2ZDIwOTk2Zi0xMDhlLTQ2YzgtODNkNS05NzVkOTJiNDk5NTQifQ.BsZdncQfoJMoMrVdROpvAwFSSmKeSYbWNjj_bCNMPBJYpe9pBOFBZ0kTUceo25MZ8F0CgrXqgvyZmNmFymCyAg")
 
+class TursoRow(dict):
+    """Permite acceder tanto por nombre de columna como por índice numérico."""
+    def __init__(self, keys, values):
+        super().__init__(zip(keys, values))
+        self._values = list(values)
+
+    def __getitem__(self, key):
+        if isinstance(key, int):
+            return self._values[key]
+        return super().__getitem__(key)
+
 class TursoConnectionWrapper:
     def __init__(self, client):
         self.client = client
@@ -20,10 +31,10 @@ class TursoConnectionWrapper:
 
     def execute(self, query, params=()):
         res = self.client.execute(query, params)
-        self._last_rows = [
-            dict(zip(res.columns, row)) if res.columns else row 
-            for row in res.rows
-        ]
+        if res.columns:
+            self._last_rows = [TursoRow(res.columns, row) for row in res.rows]
+        else:
+            self._last_rows = res.rows
         return self
 
     def fetchone(self):
@@ -33,11 +44,10 @@ class TursoConnectionWrapper:
         return self._last_rows
 
     def commit(self):
-        pass  
+        pass
 
     def close(self):
         self.client.close()
-
 
 def connect_db(env_var_name, local_file):
     url = os.environ.get(env_var_name)
