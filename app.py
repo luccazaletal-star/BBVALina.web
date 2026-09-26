@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'clave_super_secreta_bbva_lina'
 LLAVE_CORRECTA = 'LINA2026'
 
-TURSO_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJIMEhpLWJsaUVmR0R1MDdXRWFlUHR3Iiwib3JnX2lkIjoxMDAwMjU0OTI1fQ.yioIvKJb9d2b_B-exfMIEHm-2fikwSaix7RF4qzLEDPNsZg78rQ1e0tp0VVUkcva8l0zp8j0CM-Lo3vXQAYsBA")
+TURSO_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJnaWQiOiIwZjEzYWMyOC01MzE2LTRlNWEtOTc5Ny04NTZhYjhjZWVkNDAiLCJpYXQiOjE3OTAzOTcxNDEsImtpZCI6IjFvUjltbkNFSTdIaHgtMjNRMm5WbEFINW5LZW5nbUtCcTVLa0UtVnNoZnciLCJyaWQiOiI2ZDIwOTk2Zi0xMDhlLTQ2YzgtODNkNS05NzVkOTJiNDk5NTQifQ.BsZdncQfoJMoMrVdROpvAwFSSmKeSYbWNjj_bCNMPBJYpe9pBOFBZ0kTUceo25MZ8F0CgrXqgvyZmNmFymCyAg")
 def connect_db(env_var_name, local_file):
     url = os.environ.get(env_var_name)
     if url and TURSO_TOKEN:
