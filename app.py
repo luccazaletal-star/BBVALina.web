@@ -1,6 +1,6 @@
 import os
 import sqlite3
-import libsql_experimental as libsql
+import libsql_client
 from flask import Flask, render_template, request, redirect, url_for, session, flash, g
 import random
 import datetime
@@ -10,14 +10,44 @@ app.secret_key = 'clave_super_secreta_bbva_lina'
 LLAVE_CORRECTA = 'LINA2026'
 
 TURSO_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJnaWQiOiIwZjEzYWMyOC01MzE2LTRlNWEtOTc5Ny04NTZhYjhjZWVkNDAiLCJpYXQiOjE3OTAzOTcxNDEsImtpZCI6IjFvUjltbkNFSTdIaHgtMjNRMm5WbEFINW5LZW5nbUtCcTVLa0UtVnNoZnciLCJyaWQiOiI2ZDIwOTk2Zi0xMDhlLTQ2YzgtODNkNS05NzVkOTJiNDk5NTQifQ.BsZdncQfoJMoMrVdROpvAwFSSmKeSYbWNjj_bCNMPBJYpe9pBOFBZ0kTUceo25MZ8F0CgrXqgvyZmNmFymCyAg")
+
+class TursoConnectionWrapper:
+    def __init__(self, client):
+        self.client = client
+
+    def cursor(self):
+        return self
+
+    def execute(self, query, params=()):
+        res = self.client.execute(query, params)
+        self._last_rows = [
+            dict(zip(res.columns, row)) if res.columns else row 
+            for row in res.rows
+        ]
+        return self
+
+    def fetchone(self):
+        return self._last_rows[0] if self._last_rows else None
+
+    def fetchall(self):
+        return self._last_rows
+
+    def commit(self):
+        pass  
+
+    def close(self):
+        self.client.close()
+
+
 def connect_db(env_var_name, local_file):
     url = os.environ.get(env_var_name)
     if url and TURSO_TOKEN:
-        conn = libsql.connect(database=url, auth_token=TURSO_TOKEN)
+        client = libsql_client.create_client_sync(url, auth_token=TURSO_TOKEN)
+        return TursoConnectionWrapper(client)
     else:
         conn = sqlite3.connect(local_file)
         conn.row_factory = sqlite3.Row
-    return conn
+        return conn
 
 def get_db_usr():
     if 'db_usr' not in g:
