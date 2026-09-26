@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Baja de Empleado - BBVA LINA</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: #ffffff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo_header { width: 150px; }
+        .btn-volver { background-color: #004481; color: #ffffff; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        .btn-volver:hover { background-color: #0a7adc; }
+        main { max-width: 850px; margin: 2rem auto; padding: 0 1rem; width: 100%; flex: 1; }
+        h1 { color: #004481; font-size: 1.6rem; margin-bottom: 1.5rem; }
+        .alert-error { background-color: #d9534f; color: #ffffff; padding: 0.8rem; border-radius: 6px; margin-bottom: 1.2rem; font-weight: 600; }
+        .alert-exito { background-color: #28a745; color: #ffffff; padding: 0.8rem; border-radius: 6px; margin-bottom: 1.2rem; font-weight: 600; }
+        .tabla-container { background: #ffffff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow-x: auto; margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 0.85rem 1rem; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+        th { background-color: #004481; color: #ffffff; }
+        .baja-box { background: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 1rem; align-items: center; }
+        .baja-box input { flex: 1; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .btn-baja { background-color: #dc3545; color: #ffffff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background 0.3s; }
+        .btn-baja:hover { background-color: #c82333; }
+        footer { background-color: #004481; color: #f4f7f6; font-size: 0.85rem; padding: 1.5rem; text-align: center; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <a href="{{ url_for('portal_ger_operador') }}" class="btn-volver">Volver al Menú</a>
+    </header>
+
+    <main>
+        <h1>Dar de Baja a un operador</h1>
+
+        {% if error %}
+            <div class="alert-error">{{ error }}</div>
+        {% endif %}
+
+        {% if exito %}
+            <div class="alert-exito">{{ exito }}</div>
+        {% endif %}
+
+        <div class="tabla-container">
+            {% if empleados %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Operador</th>
+                            <th>Nombre Completo</th>
+                            <th>Empresa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for emp in empleados %}
+                        <tr>
+                            <td><strong>{{ emp['ID'] }}</strong></td>
+                            <td>{{ emp['nombre'] }} {{ emp['apellidopat'] }} {{ emp['apellidomat'] }}</td>
+                            <td>{{ emp['empresa'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="padding: 2rem; text-align: center; color: #666;">No hay operadores registrados actualmente.</p>
+            {% endif %}
+        </div>
+
+        <form action="{{ url_for('gerencia_baja_oper') }}" method="POST" class="baja-box" onsubmit="return confirm('¿Está seguro de que desea eliminar este operador?');">
+            <input type="text" name="id_emp_baja" placeholder="Ingrese el ID del operador a dar de baja" required>
+            <button type="submit" class="btn-baja">Dar de Baja</button>
+        </form>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integrado
+    </footer>
+</body>
+</html>

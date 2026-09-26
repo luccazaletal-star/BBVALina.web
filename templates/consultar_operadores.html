@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Directorio de Empleados - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f9;
+            color: #121212;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ENCABEZADO */
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo_header {
+            width: 140px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-volver:hover {
+            background-color: #004481;
+            transform: translateY(-1px);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* BANNER AVISO CONFIDENCIALIDAD */
+        .banner-aviso {
+            background: linear-gradient(135deg, #004481 0%, #0a7adc 100%);
+            color: #ffffff;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 68, 129, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .aviso-header h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .aviso-texto {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: #e2f1ff;
+            font-weight: 400;
+        }
+
+        /* CABECERA DE SECCIÓN */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #004481;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .total-badge {
+            background-color: #e2e8f0;
+            color: #004481;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        /* GRID DE EMPLEADOS */
+        .grid-empleados {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* TARJETA DE EMPLEADO */
+        .card-empleado {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            padding: 1.25rem;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-empleado:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 68, 129, 0.12);
+            border-color: #0a7adc;
+        }
+
+        .card-empleado::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #004481, #0a7adc);
+        }
+
+        .empleado-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .avatar-circle {
+            width: 48px;
+            height: 48px;
+            background-color: #eef5fc;
+            color: #004481;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border: 2px solid #d0e3f7;
+            flex-shrink: 0;
+        }
+
+        .empleado-nombres {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .empleado-nombre {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #004481;
+            line-height: 1.2;
+        }
+
+        .empleado-apellidos {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        /* DETALLES DE LA TARJETA */
+        .empleado-detalles {
+            background-color: #f8fafc;
+            border: 1px solid #edf2f7;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .detalle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .detalle-label {
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .badge-id {
+            background-color: #004481;
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .clave-valor {
+            font-family: monospace;
+            font-weight: 700;
+            color: #2d3748;
+            background-color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.82rem;
+        }
+
+        /* ESTADO SIN EMPLEADOS */
+        .sin-movimientos {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px dashed #cbd5e1;
+            color: #64748b;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.25rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            background: #004481;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <div class="header-buttons">
+            <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver a BBVA LINA</a>
+            <a href="{{ url_for('dashboard_admin') }}" class="btn-volver">Volver</a>
+        </div>
+    </header>
+
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                ⚠️ {{ error }}
+            </div>
+        {% endif %}
+        <section class="banner-aviso">
+            <div class="aviso-header">
+                <h1>Aviso de Control de Infraestructura y Privacidad Operativa</h1>
+            </div>
+            <p class="aviso-texto">
+                La consulta de perfiles y registros de operadores está restringida exclusivamente a administradores y personal de supervisión autorizado. Toda revisión de datos logísticos, direcciones o configuraciones genera un registro permanente en la bitácora de auditoría para garantizar la trazabilidad de las operaciones del sistema. El acceso no justificado o el uso indebido de esta información constituye una violación a las políticas de seguridad institucional y será sujeto a las sanciones administrativas y legales correspondientes.
+            </p>
+        </section>
+        <div class="section-header">
+            <h2 class="section-title">
+                👥 Personal Registrado
+                {% if session['operadores_admin'] %}
+                    <span class="total-badge">{{ session['operadores_admin']|length }} registros</span>
+                {% endif %}
+            </h2>
+        </div>
+        <section class="grid-empleados">
+            {% for mov in session['operadores_admin'] %}
+                {% set emp_id = mov['ID'] if mov['ID'] else mov[0] %}
+                {% set contr = mov['contr'] if mov['contr'] else mov[1] %}
+                {% set nombre = mov['nombre'] if mov['nombre'] else mov[2] %}
+                {% set ap_pat = mov['apellidopat'] if mov['apellidopat'] else mov[3] %}
+                {% set ap_mat = mov['apellidomat'] if mov['apellidomat'] else mov[4] %}
+                {% set empresa = mov['empresa'] if mov['empresa'] else mov[5] %}
+
+                <div class="card-empleado">
+                    <div class="empleado-header">
+                        <div class="avatar-circle">
+                            {{ nombre[0]|upper if nombre else 'E' }}
+                        </div>
+                        <div class="empleado-nombres">
+                            <span class="empleado-nombre">{{ nombre }}</span>
+                            <span class="empleado-apellidos">{{ ap_pat }} {{ ap_mat }}</span>
+                        </div>
+                    </div>
+
+                    <div class="empleado-detalles">
+                        <div class="detalle-item">
+                            <span class="detalle-label">ID Empleado:</span>
+                            <span class="badge-id">#{{ emp_id }}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">Empresa:</span>
+                            <span class="badge-id">{{ empresa }}</span>
+                        </div>
+                        <div class="detalle-item">
+                            <span class="detalle-label">Clave / Contraseña:</span>
+                            <span class="clave-valor">{{ contr }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="sin-movimientos">
+                    <h3>👥 No hay operadores registrados</h3>
+                    <p>No se encontraron registros de personal activo en el sistema.</p>
+                </div>
+            {% endfor %}
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BBVA LINA - Módulo de Gestión de Personal</p>
+    </footer>
+
+</body>
+</html>

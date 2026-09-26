@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body{
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            background-color: #ffffff;
+            color: white;
+            padding: 0rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+        }
+        .btn-volver{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+        }
+        .btn-volver:hover{
+            background-color: #004481;
+        }
+
+        .logo_header{
+            text-align: left;
+            width: 150px;
+            margin: 0%;
+        }
+        .banner-princ{
+            text-align: left;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            align-items: center;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 1px;
+            margin-left: 0.2cm;
+            margin-right: 0.2cm;
+            gap: 2rem; 
+            max-width: 20cm;  
+        }
+        .banner-sec {
+            background-color: rgba(255, 193, 7, 0.15);
+            border-left: 4px solid #ffc107;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 10cm;
+            max-height: 8cm;
+            margin-top: 30px;
+        }
+        .banner-terc{
+            text-align: left;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 0.5rem 2rem;
+            margin-top: 1px;
+            margin-bottom: 40px;
+            margin-left: 0.75cm;
+            margin-right: 0.75cm;
+            gap: 2rem;
+            width: 100px;
+            border-radius: 20%;  
+        }
+        .text-style{
+            color: #004481;
+            font-size: 2rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: inline-block;
+            margin-bottom: 30px;
+            gap: 2rem;
+        }
+        .text-style2{
+            color: #004481;
+            font-size: 1.5rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .text-style3{
+            color:black;
+            font-size: 1rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            text-align: left;
+        }
+        .text-style4{
+            color:#004481;
+            font-size: 0.7rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            text-align: center;
+        }
+        .input-style{
+            background-color: #ffffff;
+            color: #004481;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-right: 500px;
+        }
+        .btn-bbva{
+            background-color: #f4f7f6;
+            color: #004481;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+            display: inline-block;
+            margin-top: 1cm;
+        }
+        .btn-bbva:hover{
+            background-color: #ffffff;
+        }
+        .input{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+        }
+        .banner{
+            display: flex;          
+        }
+        footer{
+            background-color: #004481;
+            color: #f4f7f6;
+            font-size: 0.85rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            padding: 2rem;  
+        }
+        .btn-crearcuenta{
+            background-color: #f4f7f6;
+            color: #004481;
+            transition: background 0.5s ease;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .btn-crearcuenta:hover{
+            background-color: #ffffff;
+        }
+        .alert-error{
+            background-color: #004481;
+            color: #f4f7f6;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;           
+        }
+        .btn-opcion{
+            background-color: #ffffff;
+            color: #004481;
+            text-decoration: none;
+            padding: 1.7rem 1.7rem;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+            margin-left: 1cm;
+            margin-right: 1cm;
+            width: 80px;
+            aspect-ratio: 1/1;
+        }
+        .conocer_mas{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 2s ease;
+            display: inline-block;
+            margin-top: 50px;
+        }
+
+        .conocer_mas:hover{
+            background-color: #004481;
+        }
+        .subtitle {
+            color: #0a7adc;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .text-body {
+            color: #4a4a4a;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .btn-menu-toggle {
+            background-color: #0a7adc;
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease;
+        }
+        .btn-menu-toggle:hover {
+            background-color: #004481;
+        }
+        .sidebar {
+            height: 100%;
+            width: 300px;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: -300px;
+            background-color: #004481;
+            overflow-x: hidden;
+            transition: 0.3s ease;
+            padding-top: 20px;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+        }
+        .sidebar.active {
+            left: 0;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .sidebar-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .close-btn {
+            font-size: 2rem;
+            color: #ffffff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0 0;
+        }
+        .sidebar-menu li a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            color: #ffffff;
+            display: block;
+            transition: background 0.2s ease, padding-left 0.2s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .sidebar-menu li a:hover {
+            background-color: #0a7adc;
+            padding-left: 28px;
+        }
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .sidebar-overlay.active {
+            display: block;
+        }
+    </style> 
+</head>
+<body>
+
+    <div id="sidebar-overlay" class="sidebar-overlay" onclick="toggleMenu()"></div>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <span class="sidebar-title">Menú BBVA LINA</span>
+            <button class="close-btn" onclick="toggleMenu()">&times;</button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{{url_for('menu_roles')}}"> Volver a BBVA LINA</a></li>
+            <li><a href="{{url_for('movimientos_cliente')}}"> Ver últimos movimientos</a></li>
+            <li><a href="{{url_for('tarjeta_digital')}}"> Consultar tarjeta digital</a></li>
+            <li><a href="{{url_for('transferencia')}}"> Transferencias</a></li>
+            <li><a href="{{url_for('ingresar_dinero')}}"> Ingresar dinero</a></li>
+
+            {% if session['tdc_exists'] == 2 %}
+                <li><a href="{{url_for('pagar_tdc')}}"> Pagar tarjeta de crédito</a></li>
+                <li><a href="{{url_for('tdc_digital')}}"> Consultar tarjeta digital (TDC)</a></li>
+                <li><a href="{{url_for('comprar_tdc')}}"> Simulador de compras (DEMO)</a></li>
+            {% elif session['tdc_exists'] != 1 and session['tdc_exists'] != 3 %}
+                <li><a href="{{url_for('tdc_cliente')}}"> Solicitar / Conocer Crédito TOMIN</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <header>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="btn-menu-toggle" onclick="toggleMenu()">☰ Menú</button>
+            <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+        </div>
+        <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+    </header>
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <div class="banner">
+            <div class="banner-princ">
+            <h1 class="text-style">¡BIENVENIDO/A {{ session['bienvenida_nombre_usr'] }}!</h1>
+            <p class="text-style2">Cuenta BBVA LINA</p>
+            <p class="text-style3">**** **** **** {{session['bienvenida_numtaj_usr']}}</p>
+            <p class="text-style2">${{session['bienvenida_saldo_usr']}}</p>
+            <p class="text-style3">Saldo disponible</p>
+            <a href="{{url_for('movimientos_cliente')}}" class="btn-bbva">Ver ultimos movimientos</a>
+            <a href="{{url_for('tarjeta_digital')}}" class="btn-bbva">Consultar tarjeta digital</a>
+            </div>
+        {% if session['tdc_exists']==2 %}
+            <div class="banner">
+            <div class="banner-princ">
+            <h1 class="text-style">Credito TOMIN</h1>
+            <p class="text-style3">**** **** **** {{session['bienvenida_numtajTDC']}}</p>
+            <p class="text-style2">${{session['saldofavTDC']}}</p>
+            <p class="text-style3">Saldo disponible</p>
+            <p class="text-style2">${{session['saldocontrTDC']}}</p>
+            <p class="text-style3">Saldo utilizado</p>
+            <a href="{{url_for('pagar_tdc')}}" class="btn-bbva">Pagar tarjeta</a>
+            <a href="{{url_for('tdc_digital')}}" class="btn-bbva">Consultar tarjeta digital</a>
+            <a href="{{url_for('comprar_tdc')}}" class="btn-bbva">Simulador de compras (DEMO)</a>
+            </div>
+            </div>
+        {% elif session['tdc_exists']==3 %}
+            <div class="banner">
+                <div class="banner-princ">
+                    <h1>Bienvenido a tu panel de control</h1>
+                    <p>Consulta el resumen de tus operaciones y mantén el seguimiento de tus movimientos diarios.</p>
+                </div>
+            </div>
+        {% elif session['tdc_exists']==1 %}
+            <div class="banner">
+                <div class="banner-princ">
+                    <h1>Solicitud de tarjeta en proceso de validación</h1>
+                    <p>Estamos revisando tus datos. Tu resultado final se confirmará en un plazo de 24 a 48 horas. Te notificaremos por este medio en cuanto esté lista.</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="banner">
+                <div class="banner-princ">
+                    <h1>Abre tu cuenta de credito BBVA TOMIN hoy</h1>
+                    <p>¡Un credito confiable, accesible y sin letras chiquitas!</p>
+                    <a href="{{url_for('tdc_cliente')}}" class="conocer_mas">Conoce más</a>
+                </div>
+            </div>
+        {%endif%}  
+            <div class="banner-sec">
+                <h2 class="subtitle" style="color: #8a6d3b;">Seguridad del Equipo</h2>
+                <p class="text-body">
+                    <strong>Protege tu dispositivo:</strong> 
+                </p>
+                <p class="text-body">
+                    Asegúrate de navegar desde equipos seguros, mantener actualizado tu sistema operativo y evitar conectarte a redes Wi-Fi públicas sin protección al realizar operaciones bancarias.
+                </p>
+            </div>
+        </div>
+        <div class="banner">
+            <div>
+                <a href="{{url_for('transferencia')}}" class="btn-opcion">⇄</a>
+            </div>
+            <div>
+                <a href="{{url_for('movimientos_cliente')}}" class="btn-opcion">⇅</a>
+            </div>
+            <div>
+                <a href="{{url_for('ingresar_dinero')}}" class="btn-opcion">☰</a>
+            </div>
+        </div>
+        <div class="banner">
+            <div class="banner-terc">
+                <h1 class="text-style4">Transferencia</h1>
+            </div>
+            <div class="banner-terc">
+                <h1 class="text-style4">Movimientos</h1>
+            </div>
+            <div class="banner-terc">
+                <h1 class="text-style4">Ingresar dinero</h1>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Money Tool - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f9;
+            color: #121212;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ENCABEZADO */
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo_header {
+            width: 140px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-volver:hover {
+            background-color: #004481;
+            transform: translateY(-1px);
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        main {
+            max-width: 1100px;
+            width: 100%;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        /* ALERTAS DE ERROR */
+        .alert-error {
+            background-color: #fef2f2;
+            color: #991b1b;
+            border-left: 5px solid #dc2626;
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* SECCIÓN DE CONTENIDO A 2 COLUMNAS */
+        .container-moneytool {
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 850px) {
+            .container-moneytool {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* TARJETA DEL FORMULARIO */
+        .card-form {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #004481, #0a7adc);
+        }
+
+        .text-titulo {
+            color: #004481;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .text-subtitulo {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group label {
+            color: #004481;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .input-text {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            font-size: 1.1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            color: #1e293b;
+            outline: none;
+            transition: all 0.2s ease;
+            background-color: #f8fafc;
+        }
+
+        .input-text:focus {
+            border-color: #0a7adc;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(10, 122, 220, 0.15);
+        }
+
+        .btn-bbva {
+            background-color: #004481;
+            color: #ffffff;
+            border: none;
+            padding: 0.9rem 2rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-bbva:hover {
+            background-color: #0a7adc;
+            box-shadow: 0 4px 12px rgba(10, 122, 220, 0.3);
+            transform: translateY(-1px);
+        }
+
+        /* TARJETA INFORMATIVA / SEGURIDAD */
+        .card-seguridad {
+            background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 100%);
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .seguridad-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+
+        .text-seguridad-titulo {
+            color: #92400e;
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        .text-seguridad-cuerpo {
+            color: #78350f;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        /* PIE DE PÁGINA */
+        footer {
+            background-color: #004481;
+            color: #ffffff;
+            text-align: center;
+            padding: 1.25rem;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+            <div>
+                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+                <a href="{{url_for('dashboard_admin')}}" class="btn-volver">Volver</a>
+            </div>
+    </header>
+
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="container-moneytool">
+            <!-- FORMULARIO PRINCIPAL -->
+            <form action="{{ url_for('money_tool') }}" method="POST" class="card-form">
+                <h1 class="text-titulo">Módulo Money Tool</h1>
+                <p class="text-subtitulo">Ingresa la cuenta o CLABE del usuario para realizar la asignación de saldo.</p>
+
+                <div class="form-group">
+                    <label for="cuentamt">Cuenta de destino o CLABE</label>
+                    <input 
+                        class="input-text" 
+                        type="text" 
+                        id="cuentamt" 
+                        name="cuentamt" 
+                        placeholder="Ej. 1234567890123456" 
+                        value="{{ session.get('cliente_mt', '') }}"
+                        required
+                        autofocus
+                    >
+                </div>
+
+                <button type="submit" class="btn-bbva">
+                    Continuar
+                </button>
+            </form>
+
+            <!-- CARD INFORMATIVO -->
+            <div class="card-seguridad">
+                <span class="seguridad-icon"></span>
+                <h2 class="text-seguridad-titulo">Aviso de Entorno de Pruebas</h2>
+                <p class="text-seguridad-cuerpo">
+                    Esta herramienta es exclusivamente un entorno de simulación (demo) diseñado para realizar inyecciones de fondos de prueba dentro del sistema cerrado de la plataforma. Las operaciones realizadas a través de este módulo no tienen validez monetaria real ni representan transferencias con instituciones bancarias externas. Su uso está estrictamente limitado a fines de demostración, pruebas funcionales y validación operativa del sistema.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+    </footer>
+
+</body>
+</html>

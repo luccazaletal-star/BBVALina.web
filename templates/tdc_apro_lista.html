@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Solicitudes Pendientes - BBVA LINA</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: #ffffff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo_header { width: 150px; }
+        .btn-volver { background-color: #0a7adc; color: #fff; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        main { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; width: 100%; flex: 1; }
+        h1 { color: #004481; margin-bottom: 1.5rem; font-size: 1.8rem; }
+        .alert-error { background-color: #d9534f; color: #fff; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-weight: 600; }
+        .alert-flash { background-color: #28a745; color: #fff; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-weight: 600; }
+        .tabla-container { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); overflow-x: auto; margin-bottom: 2rem; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 1rem; border-bottom: 1px solid #eee; }
+        th { background-color: #004481; color: #fff; }
+        .search-box { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 1rem; align-items: center; }
+        .search-box input { flex: 1; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .btn-buscar { background-color: #004481; color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-buscar:hover { background-color: #0a7adc; }
+        footer { background-color: #004481; color: #fff; padding: 1.5rem; text-align: center; margin-top: auto; }
+        .btn-volver:hover {
+            background-color: #004481;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+            <div>
+                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+                <a href="{{url_for('dashboard_empleado')}}" class="btn-volver">Volver</a>
+            </div>
+    </header>
+
+    <main>
+        <h1>Portal Tarjetas de Crédito - Solicitudes a Aprobar</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="alert-flash">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if error %}
+            <div class="alert-error">{{ error }}</div>
+        {% endif %}
+
+        <div class="tabla-container">
+            {% if solicitudes %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Usuario</th>
+                            <th>Nombre Completo</th>
+                            <th>Ingresos Mensuales</th>
+                            <th>Ocupación</th>
+                            <th>Estatus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in solicitudes %}
+                        <tr>
+                            <td><strong>{{ item['ID'] }}</strong></td>
+                            <td>{{ item['nombre_compl'] }}</td>
+                            <td>${{ item['ingresos_men'] }}</td>
+                            <td>{{ item['ocupacion'] }}</td>
+                            <td><span style="color: #ff9800; font-weight: bold;">{{ item['status'] }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p style="padding: 2rem; text-align: center; color: #666;">Sin cuentas disponibles para procesar.</p>
+            {% endif %}
+        </div>
+
+        <form action="{{ url_for('tdc_apro_lista') }}" method="POST" class="search-box">
+            <input type="text" name="id_usr" placeholder="Ingrese el ID de la cuenta que gusta procesar" required>
+            <button type="submit" class="btn-buscar">Buscar para Procesar</button>
+        </form>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo de Empleados
+    </footer>
+</body>
+</html>

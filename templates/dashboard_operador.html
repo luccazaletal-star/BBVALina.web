@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Dashboard Admin - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+        .logo_header {
+            width: 140px;
+        }
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .btn-volver:hover {
+            background-color: #004481;
+        }
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .alert-error {
+            background-color: #d92027;
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .banner-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .banner-princ {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .banner-sec {
+            background-color: rgba(255, 193, 7, 0.15);
+            border-left: 4px solid #ffc107;
+            padding: 2rem;
+            border-radius: 12px;
+        }
+        .title-welcome {
+            color: #004481;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #0a7adc;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .text-body {
+            color: #4a4a4a;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* GRID DE ACCIONES Y BOTONES */
+        .acciones-container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .acciones-title {
+            color: #004481;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+        .grid-acciones {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 1.5rem;
+            justify-items: center;
+        }
+        .card-accion {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+        }
+        .btn-opcion {
+            background-color: #004481;
+            color: #ffffff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .card-accion:hover .btn-opcion {
+            transform: translateY(-3px);
+            background-color: #0a7adc;
+        }
+        .label-accion {
+            color: #004481;
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        footer {
+            background-color: #004481;
+            color: #f4f7f6;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .banner-top {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style> 
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver al Menú</a>
+    </header>
+
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <section class="banner-top">
+            <div class="banner-princ">
+                <h1 class="title-welcome">¡Bienvenido/a {{ session.get('bienvenida_nombre_operador', 'Operador') }}!</h1>
+                <p class="subtitle">{{session['bienvenida_empresa_operador']}}</p>
+                <p class="subtitle">Panel de Operadores</p>
+                <p class="text-body">
+                    <strong>Aviso de Privacidad y Control Interno:</strong><br>
+                    Este espacio está reservado exclusivamente para personal autorizado. Toda operación, consulta o modificación realizada desde este perfil queda registrada bajo auditoría de seguridad para garantizar la integridad de la plataforma.
+                </p>
+            </div>
+            <div class="banner-sec">
+                <h2 class="subtitle" style="color: #8a6d3b;">Seguridad del Equipo</h2>
+                <p class="text-body">
+                    Las extensiones no autorizadas en el navegador pueden comprometer las credenciales de acceso y la información confidencial del sistema. Evita instalarlas en este equipo.
+                </p>
+            </div>
+        </section>
+
+        <section class="acciones-container">
+            <h2 class="acciones-title">Gestión de la Plataforma</h2>
+            
+            <div class="grid-acciones">
+
+                <a href="{{ url_for('calendario_operador') }}" class="card-accion">
+                    <div class="btn-opcion">📅</div>
+                    <span class="label-accion">Calendario de entregas</span>
+                </a>
+
+                <a href="{{ url_for('login_operadorger') }}" class="card-accion">
+                    <div class="btn-opcion">🏢</div>
+                    <span class="label-accion">Portal de gerencia</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+    </footer>
+</body>
+</html>

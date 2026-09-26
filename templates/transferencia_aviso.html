@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body{
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            background-color: #ffffff;
+            color: white;
+            padding: 0rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+        }
+        .logo_header{
+            text-align: left;
+            width: 150px;
+            margin: 0%;
+        }
+        .btn-volver{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+        }
+        .btn-volver:hover{
+            background-color: #004481;
+        }
+        .banner-anuncio{
+            background-color: #ffffff;
+            color: #004481;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            gap: 2rem;
+        }
+        .banner_img1 img{width: 100%;
+            max-width: 600px;
+            height: 350px;
+            object-fit: cover;
+        }
+        .input-style{
+            background-color: #ffffff;
+            color: #004481;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .input{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+        }
+        .banner-datos{
+            background-color: #ffffff;
+            color: #004481;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;
+        }
+        .input2{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+            width: 30%;
+        }
+        .btn-bbva{
+            background-color: #004481;
+            color: #f4f7f6;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 1rem;
+            border: 0px solid #ffffff;
+            padding: 5px;
+            transition: background 0.5s ease;
+        }
+        .btn-bbva:hover{
+            background-color: #0a7adc;
+        }
+        .banner{
+            color: #004481;
+            display: block;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+        }
+        .text-style{
+            margin-bottom: 10px;
+        }
+        .btn-outline {
+            width: 100%;
+            border: 2px solid #004481;
+            background: transparent;
+            color: #004481;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: #004481;
+            color: #ffffff;
+        }
+    </style>
+    </head>
+    <body>
+        <header>
+            <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+            <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+        </header>
+        <main>
+            {% if error %}
+                <div class="alert-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <section class="banner">
+                <h2>Transferencia exitosa</h2>
+                    <section class="banner-anuncio">
+                    <div>
+                        <button class="btn-outline" onclick="window.print()">
+                            OBTENER IMAGEN
+                        </button>
+                        <p>Tipo de operación</p>
+                        <h3 class="text-style">Transferencia a terceros</h3>
+                        <p>Fecha</p>
+                        <h3 class="text-style">{{session['fecha_hoy']}}</h3>
+                        <p>Hora</p>
+                        <h3 class="text-style">{{session['hora']}}</h3>
+                        <p>Concepto</p>
+                        <h3 class="text-style">{{session['concepto_trans']}}</h3>
+                        <p>Importe transferido</p>
+                        <h3 class="text-style">{{session['monto_trans']}}</h3>
+                        <p>Cuenta de origen</p>
+                        <h3 class="text-style">**** **** **** {{session['numtaj_trans']}}</h3>
+                        <p>Beneficiario</p>
+                        <h3 class="text-style">{{session['nombre_recipiente']}}</h3>
+                        <p>Nombre del banco</p>
+                        <h3 class="text-style">Cuenta BBVA</h3>
+                        <p>Cuenta de destino</p>
+                        <h3 class="text-style">**** **** **** {{session['numtaj_recipiente']}}</h3>
+                        <a href="{{url_for('dashboard_cliente')}}" class="btn-bbva">Volver</a>
+                    </div>
+                    </section>
+            </section>
+        </main>
+    </body>
+    </html>

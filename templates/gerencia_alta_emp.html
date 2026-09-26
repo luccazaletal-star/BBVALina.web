@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Alta de Empleado - BBVA LINA</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: #ffffff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo_header { width: 150px; }
+        .btn-volver { background-color: #004481; color: #ffffff; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        .btn-volver:hover { background-color: #0a7adc; }
+        main { max-width: 550px; margin: 3rem auto; padding: 0 1rem; width: 100%; flex: 1; }
+        .card-form { background: #ffffff; border-radius: 8px; padding: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        h1 { color: #004481; font-size: 1.6rem; margin-bottom: 1.5rem; border-bottom: 2px solid #004481; padding-bottom: 0.5rem; }
+        .alert-error { background-color: #d9534f; color: #ffffff; padding: 0.8rem; border-radius: 6px; margin-bottom: 1.2rem; font-weight: 600; font-size: 0.9rem; }
+        .form-group { margin-bottom: 1.2rem; }
+        .form-group label { display: block; color: #004481; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+        .input-text { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; outline: none; }
+        .input-text:focus { border-color: #0a7adc; box-shadow: 0 0 0 2px rgba(10,122,220,0.15); }
+        .btn-registrar { width: 100%; background-color: #004481; color: #ffffff; border: none; padding: 0.85rem; border-radius: 6px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: background 0.3s ease; margin-top: 0.5rem; }
+        .btn-registrar:hover { background-color: #0a7adc; }
+        footer { background-color: #004481; color: #f4f7f6; font-size: 0.85rem; padding: 1.5rem; text-align: center; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <a href="{{ url_for('portal_ger_empleado') }}" class="btn-volver">Volver al Menú</a>
+    </header>
+
+    <main>
+        <div class="card-form">
+            <h1>Registro de Nuevo Empleado</h1>
+
+            {% if error %}
+                <div class="alert-error">{{ error }}</div>
+            {% endif %}
+
+            <form action="{{ url_for('gerencia_alta_emp') }}" method="POST">
+                <div class="form-group">
+                    <label for="nombre">Nombre(s)</label>
+                    <input type="text" id="nombre" name="nombre" class="input-text" placeholder="Ingrese nombre" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellpat">Primer Apellido</label>
+                    <input type="text" id="apellpat" name="apellpat" class="input-text" placeholder="Ingrese primer apellido" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="apellmat">Segundo Apellido</label>
+                    <input type="text" id="apellmat" name="apellmat" class="input-text" placeholder="Ingrese segundo apellido" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contr">Contraseña (12 dígitos)</label>
+                    <input type="password" id="contr" name="contr" maxlength="12" minlength="12" class="input-text" placeholder="Contraseña de 12 caracteres" required>
+                </div>
+
+                <button type="submit" class="btn-registrar">Registrar Empleado</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integrado
+    </footer>
+</body>
+</html>

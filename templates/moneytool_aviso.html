@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Operación Exitosa - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo_header {
+            width: 150px;
+        }
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .btn-volver:hover {
+            background-color: #004481;
+        }
+        main {
+            max-width: 700px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            flex: 1;
+        }
+        .card-confirmacion {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 6px solid #28a745;
+        }
+        .status-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .status-header h2 {
+            color: #004481;
+            font-size: 1.8rem;
+            margin-top: 0.5rem;
+        }
+        .status-badge {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        .grid-datos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 6px;
+        }
+        .dato-item p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+        .dato-item h3 {
+            font-size: 1.1rem;
+            color: #004481;
+            font-weight: 600;
+        }
+        .acciones {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .btn-bbva {
+            background-color: #004481;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+        .btn-bbva:hover {
+            background-color: #0a7adc;
+        }
+        .btn-secundario {
+            background-color: #e0e0e0;
+            color: #333;
+            text-decoration: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            text-align: center;
+        }
+        .btn-secundario:hover {
+            background-color: #d0d0d0;
+        }
+        footer {
+            background-color: #004481;
+            color: #f4f7f6;
+            font-size: 0.85rem;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+        @media (max-width: 550px) {
+            .grid-datos {
+                grid-template-columns: 1fr;
+            }
+            .acciones {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver al Menú</a>
+    </header>
+
+    <main>
+        {% if error %}
+            <div style="background-color: #d9534f; color: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="card-confirmacion">
+            <div class="status-header">
+                <span class="status-badge">Operación Exitosa</span>
+                <h2>Saldo Asignado Correctamente</h2>
+            </div>
+
+            <div class="grid-datos">
+                <div class="dato-item">
+                    <p>Tipo de Operación</p>
+                    <h3>Abono Administrativo</h3>
+                </div>
+                <div class="dato-item">
+                    <p>Beneficiario</p>
+                    <h3>{{ session.get('nombre_recipientemt', 'Cliente') }}</h3>
+                </div>
+                <div class="dato-item">
+                    <p>Cuenta / CLABE Destino</p>
+                    <h3>{{ session.get('cliente_mt', 'N/A') }}</h3>
+                </div>
+            </div>
+
+            <div class="acciones">
+                <a href="{{ url_for('money_tool') }}" class="btn-bbva">Asignar otro monto</a>
+                <a href="{{ url_for('dashboard_admin') }}" class="btn-secundario">Ir al menú principal</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+    </footer>
+</body>
+</html>

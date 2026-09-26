@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body{
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            background-color: #ffffff;
+            color: white;
+            padding: 0rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+        }
+        .btn-volver{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+        }
+        .btn-volver:hover{
+            background-color: #004481;
+        }
+
+        .logo_header{
+            text-align: left;
+            width: 150px;
+            margin: 0%;
+        }
+        .banner-princ{
+            text-align: left;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            align-items: center;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5px;
+            gap: 2rem;   
+        }
+        .banner-sec{
+            text-align: center;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            align-items: center;
+            width:350px;
+            aspect-ratio: 1/1;
+            background-color: rgba(255, 193, 7, 0.25);
+            color: #333;
+            padding: 2rem 2rem;
+            margin-top: 60px;
+            margin-bottom: 90px;
+            margin-left: 60px;
+            margin-right: 0.5cm;
+            gap: 2rem;
+        }
+        .text-style{
+            color: #004481;
+            font-size: 2rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        .text-style2{
+            color: black;
+            font-size: 1.5rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: inline-block;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        .text-style3{
+            color:#333;
+            font-size: 1rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            text-align: left;
+        }
+        .input-style{
+            background-color: #ffffff;
+            color: #004481;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-right: 500px;
+        }
+        .btn-bbva{
+            background-color: #004481;
+            color: #f4f7f6;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 2rem;
+            border: 0px solid #ffffff;
+            padding: 5px;
+            transition: background 0.5s ease;
+        }
+        .btn-bbva:hover{
+            background-color: #0a7adc;
+        }
+        .input{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+        }
+        .input2{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+            width: 60%;
+        }
+        .banner{
+            display: flex;          
+        }
+        footer{
+            background-color: #004481;
+            color: #f4f7f6;
+            font-size: 0.85rem;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            padding: 2rem;  
+        }
+        .btn-crearcuenta{
+            background-color: #f4f7f6;
+            color: #004481;
+            transition: background 0.5s ease;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 0.5rem;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .btn-crearcuenta:hover{
+            background-color: #ffffff;
+        }
+        .alert-error{
+            background-color: #004481;
+            color: #f4f7f6;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;           
+        }
+    </style> 
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+            <div>
+                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+                <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
+            </div>
+    </header>
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <div class="banner">
+        <form action="{{ url_for('transferencia') }}" class="banner-princ" method="POST">
+            <h1 class="text-style">Portal de transferencia</h1>
+            <div class="input-style">
+                <label for="cuentadest">Escriba la cuenta de destino</label>
+                <input
+                    class="input2"
+                    type="text" 
+                    id="cuentadest" 
+                    name="cuentadest" 
+                    placeholder="CLABE/Numero de tarjeta" 
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-bbva">Ingresar</button>
+        </form>
+        <div class="banner-sec">
+            <h1 class="text-style2">Cuida tus datos y la seguridad del equipo</h1>
+            <p class="text-style3">Algunas extensiones de los navegadores pueden poner en riesgo la seguridad de tus datos. Evita instalarlas en el navegador que usas para entrar a bbva.mx.</p>
+        </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+        </div>
+    </footer>
+</body>
+
+</html>

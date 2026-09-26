@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #ffffff;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+            border-radius: 8px;
+        }
+        .logo_header {
+            text-align: left;
+            width: 150px;
+            margin: 0;
+        }
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .btn-volver:hover {
+            background-color: #004481;
+        }
+
+        .seccion {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+            margin: 180px auto 60px auto;
+        }
+        .seccion2 {
+            position: relative;
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .imagen-asomada-atras {
+            position: absolute;
+            z-index: 5;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -55%); 
+            width: 95%;
+            max-width: 800px; 
+            height: auto; 
+            border-radius: 16px;
+        }
+
+        .banner-anuncio {
+            position: relative;
+            z-index: 10;
+            width: 82%;
+            margin: 0 auto;
+            background-color: #ffffff;
+            color: #004481;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 45px 50px;
+            gap: 1.2rem;
+            box-sizing: border-box;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+        .banner-anuncio h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+        .banner-anuncio p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #444;
+            max-width: 700px;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            margin: 1rem 1.5rem;
+            border-radius: 6px;
+            border: 1px solid #f5c6cb;
+        }
+        .text-style{
+            color: #004481;
+            font-weight: 600;
+            font-size: medium;
+        }
+        .text-style2{
+            color: #004481;
+            font-weight: 600;
+            font-size: small;
+        }
+        .block{
+            display: flex;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            border-top: 1px solid #e1e8ed;
+            background: #004481;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver a BBVA LINA</a>
+    </header>
+
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <div class="seccion">
+            <img src="{{ url_for('static', filename='img/bbvatomindisplay.png') }}?v=3" alt="Tarjeta BBVA TOMIN" class="imagen-asomada-atras">
+            
+            <div class="banner-anuncio">
+                <h1>VISA CREDITO</h1>
+                <div class="text-style">
+                    <p>Numero de tarjeta:</p>
+                    <p>{{session['numtaj_tdc']}}</p>
+                </div>
+                <div class="block">
+                    <div class="text-style2">
+                        <p>Fecha de vencimiento:</p>
+                        <p>{{session['fechavenc_tdc']}}</p>
+                        <p>CVV:</p>
+                        <p>{{session['cvv_tdc']}}</p>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{ url_for('dashboard_cliente') }}" class="btn-volver">Volver</a> 
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div>
+            BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+        </div>
+    </footer>
+</body>
+</html>

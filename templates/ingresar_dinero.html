@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body{
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            background-color: #ffffff;
+            color: white;
+            padding: 0rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+        }
+        .logo_header{
+            text-align: left;
+            width: 150px;
+            margin: 0%;
+        }
+        .btn-volver{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+        }
+        .btn-volver:hover{
+            background-color: #004481;
+        }
+        .banner-anuncio{
+            background-color: #ffffff;
+            color: #004481;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;
+        }
+        .textstyle{
+            display: inline-block;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+        }
+        .banner_img1 img{width: 100%;
+            max-width: 600px;
+            height: 350px;
+            object-fit: cover;
+        }
+        .input-style{
+            background-color: #ffffff;
+            color: #004481;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .input{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+        }
+        .banner-datos{
+            background-color: #ffffff;
+            color: #004481;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;
+        }
+        .input2{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+            width: 30%;
+        }
+        .btn-bbva{
+            background-color: #004481;
+            color: #f4f7f6;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 2rem;
+            border: 0px solid #ffffff;
+            padding: 5px;
+            transition: background 0.5s ease;
+        }
+        .btn-bbva:hover{
+            background-color: #0a7adc;
+        }
+        .banner{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .banner2{
+            display: block;
+            align-items: center;
+        }
+        .textstyle3{
+            color: #004481;
+            font-size: 1rem;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            border-top: 1px solid #e1e8ed;
+            background: #004481;
+        }
+    </style>
+    </head>
+    <body>
+        <header>
+            <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+            <div>
+                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+                <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
+            </div>
+        </header>
+        <main>
+            {% if error %}
+                <div class="alert-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <section class="banner-anuncio">
+                <div class="banner">
+                    <h1 class="textstyle">GENERAL</h1>
+                </div>
+                <div class="banner2">
+                    <p>Producto</p>
+                    <h2 class="text-style3">BBVA LINA CUENTA DIGITAL</h2>
+                    <p>Cuenta CLABE</p>
+                    <h2 class="text-style3">{{session['clabe_debito']}}</h2>
+                    <p>Numero de tarjeta</p>
+                    <h2 class="text-style3">{{session['numtaj_debito2']}}</h2>
+                </div>
+            </section>
+            <section class="banner-anuncio">
+                <div class="banner2">
+                    <p>Beneficiarios</p>
+                    <h2 class="text-style3">{{session['nombre_completo_usr']}}</h2>
+                </div>
+            </section>
+        </main>
+    <footer>
+        <div>
+            BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+        </div>
+    </footer>
+    </body>
+    </html>

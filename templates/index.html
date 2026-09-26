@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBVA LINA - Acceso al Proyecto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #043263;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            color: #333333;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            color: #1464A5;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .disclaimer {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            font-size: 0.85em;
+            color: #555;
+            text-align: left;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            text-align: center;
+        }
+        button {
+            background-color: #1464A5;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #043263;
+        }
+        .error {
+            color: #d32f2f;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BBVA LINA</h1>
+        <div class="subtitle">Sistema de Inclusión Financiera Rural</div>
+
+        <div class="disclaimer">
+            <strong>⚠️ AVISO ACADÉMICO IMPRESCINDIBLE:</strong><br>
+            Este sitio web es un prototipo desarrollado con fines estrictamente escolares para un proyecto de excelencia académica en <strong>Universidad Tecmilenio</strong>. No está afiliado, patrocinado ni representa a la institución bancaria BBVA México. No introduzca información personal real.
+        </div>
+
+        <form action="/" method="POST">
+            <label for="llave"><strong>Ingrese la Llave de Acceso al Proyecto:</strong></label>
+            <input type="password" id="llave" name="llave_acceso" placeholder="Ej: LINA2026" required autofocus>
+            <button type="submit">Ingresar al Sistema</button>
+        </form>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>

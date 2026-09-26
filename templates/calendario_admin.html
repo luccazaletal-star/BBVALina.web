@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Calendario de Entregas - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f9;
+            color: #121212;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo_header {
+            width: 140px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-volver:hover {
+            background-color: #004481;
+            transform: translateY(-1px);
+        }
+
+        main {
+            max-width: 1200px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+        }
+
+        .banner-aviso {
+            background: linear-gradient(135deg, #004481 0%, #0a7adc 100%);
+            color: #ffffff;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 68, 129, 0.15);
+            margin-bottom: 2rem;
+        }
+
+        .aviso-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .aviso-header h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .aviso-texto {
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: #e2f1ff;
+            font-weight: 400;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #004481;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .total-badge {
+            background-color: #e2e8f0;
+            color: #004481;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+
+        .grid-entregas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card-entrega {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .card-entrega:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 68, 129, 0.12);
+            border-color: #0a7adc;
+        }
+
+        .card-entrega::before {
+            content: '';
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, #004481, #0a7adc);
+        }
+
+        .card-body {
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .cliente-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .cliente-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #eef5fc;
+            color: #004481;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .cliente-nombre {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #004481;
+            line-height: 1.2;
+        }
+
+        .badge-status {
+            background-color: #eef8f2;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .direccion-box {
+            background-color: #f8fafc;
+            border: 1px solid #edf2f7;
+            border-radius: 8px;
+            padding: 0.9rem;
+            display: flex;
+            gap: 10px;
+        }
+
+        .pin-icon {
+            color: #0a7adc;
+            font-size: 1.2rem;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .direccion-detalles {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .calle-linea {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 0.92rem;
+        }
+
+        .colonia-linea {
+            color: #4a5568;
+            font-size: 0.85rem;
+        }
+
+        .cp-badge {
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #004481;
+            background-color: #e2e8f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .notas-box {
+            background-color: #fffbeb;
+            border-left: 3px solid #f59e0b;
+            padding: 0.6rem 0.8rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.82rem;
+            color: #78350f;
+        }
+
+        .notas-box strong {
+            color: #92400e;
+        }
+
+        .sin-movimientos {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 2px dashed #cbd5e1;
+            color: #64748b;
+        }
+
+        .sin-movimientos-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 0.9rem 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.25rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            background: #004481;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <div class="header-buttons">
+            <div>
+                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+                <a href="{{url_for('dashboard_admin')}}" class="btn-volver">Volver</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                ⚠️ {{ error }}
+            </div>
+        {% endif %}
+        <section class="banner-aviso">
+            <div class="aviso-header">
+                <h2>Logística Segura y Protección de Datos</h2>
+            </div>
+            <p class="aviso-texto">
+                La información contenida en este calendario incluye datos de domicilio y recepción de documentos sensibles. Esta sección debe ser consultada exclusivamente para fines operativos de coordinación de envíos autorizados. Cualquier consulta o modificación queda registrada en la bitácora de auditoría.
+            </p>
+        </section>
+        <div class="section-header">
+            <h1 class="section-title">
+                📦 Calendario de Entregas
+                {% if session['calendario_admin'] %}
+                    <span class="total-badge">{{ session['calendario_admin']|length }} pendientes</span>
+                {% endif %}
+            </h1>
+        </div>
+        <section class="grid-entregas">
+            {% for mov in session['calendario_admin'] %}
+                {% set nombre_cliente = mov['nombre_cli'] if mov['nombre_cli'] else mov[-1] %}
+                {% set calle = mov['calle'] if mov['calle'] else mov[0] %}
+                {% set numcalle = mov['numcalle'] if mov['numcalle'] else mov[1] %}
+                {% set colonia = mov['colonia'] if mov['colonia'] else mov[2] %}
+                {% set ciudad = mov['ciudad'] if mov['ciudad'] else mov[3] %}
+                {% set estado = mov['estado'] if mov['estado'] else mov[4] %}
+                {% set cp = mov['CP'] if mov['CP'] else mov[5] %}
+                {% set detalles = mov['detalles'] if mov['detalles'] else mov[6] %}
+
+                <div class="card-entrega">
+                    <div class="card-body">
+                        
+                        <div class="cliente-header">
+                            <div class="cliente-info">
+                                <div class="avatar-icon">
+                                    {{ nombre_cliente[0]|upper if nombre_cliente else 'C' }}
+                                </div>
+                                <h3 class="cliente-nombre">{{ nombre_cliente }}</h3>
+                            </div>
+                            <span class="badge-status">Programado</span>
+                        </div>
+
+                        <div class="direccion-box">
+                            <span class="pin-icon">📍</span>
+                            <div class="direccion-detalles">
+                                <span class="calle-linea">{{ calle }} #{{ numcalle }}</span>
+                                <span class="colonia-linea">Col. {{ colonia }}, {{ ciudad }}</span>
+                                <span class="colonia-linea">{{ estado }}</span>
+                                <span class="cp-badge">C.P. {{ cp }}</span>
+                            </div>
+                        </div>
+
+                        {% if detalles %}
+                            <div class="notas-box">
+                                <strong>📝 Nota:</strong> {{ detalles }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% else %}
+                <div class="sin-movimientos">
+                    <div class="sin-movimientos-icon">📭</div>
+                    <h3>No hay entregas programadas</h3>
+                    <p>Actualmente no se registraron envíos en la base de datos de logística.</p>
+                </div>
+            {% endfor %}
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BBVA LINA - Módulo de Gestión Logística</p>
+    </footer>
+
+</body>
+</html>

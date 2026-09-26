@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Comprobante de Compra - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+            border-radius: 8px;
+        }
+        .logo_header {
+            width: 150px;
+        }
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+        }
+        .btn-volver:hover {
+            background-color: #004481;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 1rem 1.5rem 3rem 1.5rem;
+        }
+        .receipt-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 580px;
+            padding: 2.5rem 2rem;
+            border: 1px solid #e2e8f0;
+        }
+        .success-header {
+            text-align: center;
+        }
+        .check-circle {
+            width: 65px;
+            height: 65px;
+            background-color: #84cc16;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 15px auto;
+            font-weight: 800;
+        }
+        .success-title {
+            color: #65a30d;
+            font-size: 1.1rem;
+            font-weight: 700;
+            max-width: 300px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        .monto-principal {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 15px 0 25px 0;
+            text-align: center;
+        }
+        .btn-outline {
+            width: 100%;
+            border: 2px solid #004481;
+            background: transparent;
+            color: #004481;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background: #004481;
+            color: #ffffff;
+        }
+        .details-list {
+            border-top: 1px solid #e2e8f0;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+        .detail-label {
+            color: #1e293b;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .detail-value {
+            color: #64748b;
+            font-weight: 600;
+            text-align: right;
+        }
+        .btn-finalizar {
+            margin-top: 25px;
+            width: 100%;
+            background: #004481;
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s ease;
+        }
+        .btn-finalizar:hover {
+            background: #0a7adc;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            border-top: 1px solid #e1e8ed;
+            background: #004481;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+            <div>
+                <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+                <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
+            </div>
+    </header>
+
+    <main>
+        <div class="receipt-card">
+            <div class="success-header">
+                <div class="check-circle">✓</div>
+                <div class="success-title">Compra autorizada exitosamente</div>
+                <div class="monto-principal">${{ "%.2f"|format(c.monto) }} <small style="font-size: 1.1rem;">MXN</small></div>
+            </div>
+
+            <button class="btn-outline" onclick="window.print()">
+                OBTENER IMAGEN
+            </button>
+
+            <div class="details-list">
+                <div class="detail-row">
+                    <span class="detail-label">ESTABLECIMIENTO</span>
+                    <span class="detail-value">{{ c.establecimiento }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">TARJETA</span>
+                    <span class="detail-value">{{ c.tarjeta }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">REFERENCIA BBVA LINA</span>
+                    <span class="detail-value">{{ c.referencia }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">HORA DE OPERACIÓN</span>
+                    <span class="detail-value">{{ c.hora }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">FECHA OPERACIÓN</span>
+                    <span class="detail-value">{{ c.fecha }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">TIPO DE OPERACIÓN</span>
+                    <span class="detail-value">Compra POS / Comercio</span>
+                </div>
+            </div>
+
+            <a href="{{ url_for('dashboard_cliente') }}" class="btn-finalizar">Finalizar</a>
+        </div>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+    </footer>
+</body>
+</html>

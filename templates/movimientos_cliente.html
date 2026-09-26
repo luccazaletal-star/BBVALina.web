@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body{
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header{
+            background-color: #ffffff;
+            color: white;
+            padding: 0rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+        }
+        .logo_header{
+            text-align: left;
+            width: 150px;
+            margin: 0%;
+        }
+        .btn-volver{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;;
+        }
+        .btn-volver:hover{
+            background-color: #004481;
+        }
+        .banner-anuncio{
+            background-color: rgba(0, 68, 129, 0.8);
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;
+            max-width: 20cm;
+        }
+        .banner{
+            display: flex;
+            gap: 2rem;
+        }
+        .input-style{
+            background-color: #ffffff;
+            color: #004481;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .input{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+        }
+        .banner-datos{
+            background-color: #ffffff;
+            color: #004481;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            padding: 0.5rem 7rem;
+            margin-top: 5px;
+            margin-bottom: 60px;
+            margin-left: 0cm;
+            margin-right: 0cm;
+            gap: 2rem;
+        }
+        .input2{
+            font-size: 1.2rem;
+            background-color: #ffffff;
+            border: 0px solid #ffffff;
+            margin-left: 10px;
+            width: 30%;
+        }
+        .btn-bbva{
+            background-color: #004481;
+            color: #f4f7f6;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 2rem;
+            border: 0px solid #ffffff;
+            padding: 5px;
+            transition: background 0.5s ease;
+        }
+        .btn-bbva:hover{
+            background-color: #0a7adc;
+        }
+        .textstyle-anuncio{
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+        .textstyle-anuncio2{
+            font-size: 1rem;
+            color: #004481;
+        }
+        .banner2{
+            display: block;
+        }
+        .banner-titulo{
+            background-color: #ffffff;
+            color: #004481;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: block;
+            padding: 0.5rem 7rem;
+            margin-top: 30px;
+            margin-bottom: 5px;
+            margin-left: 0cm;
+            margin-right: 0cm;
+            gap: 0.5rem;
+            border-radius: 10%;
+        }
+        .lista-movimientos {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .movimiento-banner {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #004481; 
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .movimiento-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .movimiento-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .movimiento-titulo {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #004481;
+            margin: 0;
+        }
+
+        .movimiento-concepto {
+            font-size: 0.9rem;
+            color: #666666;
+            margin: 0;
+        }
+        .movimiento-monto {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #121212;
+            white-space: nowrap; 
+        }
+        .sin-movimientos {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            border-top: 1px solid #e1e8ed;
+            background: #004481;
+        }
+    </style>
+    </head>
+    <body>
+        <header>
+            <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+            <div>
+            <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+            <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
+            </div>
+        </header>
+        <main>
+            {% if error %}
+                <div class="alert-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <section class="banner">
+                <div class="banner-anuncio">
+                    <div class="textstyle-anuncio">
+                        <h1">Si desconoces alguna operacion, puedes reportarla marcando al 55 5226 2663. Tienes hasta 90 dias desde la fecha de transaccion para hacerlo</h1>
+                    </div>
+                </div>
+                <div class="banner2">
+                <h class="banner-titulo">ULTIMOS MOVIMIENTOS</h>
+                <div class="lista-movimientos">
+                    {% for mov in session['movimientos_usr']%}
+                    <div class="movimiento-banner">
+                        <div class="movimiento-info">
+                            <h3 class="movimiento-titulo">{{mov['transdest'] if mov['transdest'] else mov[2]}}</h3>
+                            <p class="movimiento-concepto">{{mov['transconc'] if mov['transconc'] else mov[4]}}</p>
+                        </div>
+                        <div class="movimiento-monto">
+                            ${{ "{:,.2f}".format(mov['transmont'] if mov['transmont'] else mov[1]) }}
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="sin-movimientos">No se encontraron movimientos registrados.</p>
+                {% endfor %}
+                </div>
+                </div>
+            </section>
+        </main>
+
+    </body>
+    </html>

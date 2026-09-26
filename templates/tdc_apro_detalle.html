@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Detalle de Solicitud - BBVA LINA</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: #ffffff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo_header { width: 150px; }
+        .btn-volver { background-color: #6c757d; color: #fff; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        main { max-width: 800px; margin: 2rem auto; padding: 0 1rem; width: 100%; flex: 1; }
+        .card-detalle { background: #fff; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        h1 { color: #004481; margin-bottom: 1.5rem; font-size: 1.6rem; border-bottom: 2px solid #004481; padding-bottom: 0.5rem; }
+        .grid-datos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .dato-item { background-color: #f9fbfd; padding: 0.8rem; border-radius: 6px; border-left: 4px solid #004481; }
+        .dato-item label { display: block; font-size: 0.8rem; color: #666; font-weight: bold; }
+        .dato-item span { font-size: 1.05rem; color: #333; font-weight: 600; }
+        .form-decision { background: #fff; border-radius: 8px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .input-group { margin-bottom: 1.5rem; }
+        .input-group label { display: block; margin-bottom: 0.5rem; color: #004481; font-weight: 600; }
+        .input-group input { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .acciones-btns { display: flex; gap: 1rem; }
+        .btn-aprobar { flex: 1; background-color: #28a745; color: #fff; border: none; padding: 0.8rem; border-radius: 6px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .btn-aprobar:hover { background-color: #218838; }
+        .btn-rechazar { flex: 1; background-color: #dc3545; color: #fff; border: none; padding: 0.8rem; border-radius: 6px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .btn-rechazar:hover { background-color: #c82333; }
+        footer { background-color: #004481; color: #fff; padding: 1.5rem; text-align: center; margin-top: auto; }
+        .btn-volver { background-color: #0a7adc; color: #fff; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        .btn-volver:hover {
+            background-color: #004481;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <div>
+            <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver a BBVA LINA</a>
+            <a href="{{ url_for('tdc_apro_lista') }}" class="btn-volver">Elegir otra cuenta</a>
+            <a href="{{url_for('dashboard_empleado')}}" class="btn-volver">Volver</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="card-detalle">
+            <h1>Datos Ampliados del Usuario</h1>
+
+            <div class="grid-datos">
+                <div class="dato-item">
+                    <label>ID del Usuario:</label>
+                    <span>{{ solicitud['ID'] }}</span>
+                </div>
+                <div class="dato-item">
+                    <label>Nombre Completo:</label>
+                    <span>{{ solicitud['nombre_compl'] }}</span>
+                </div>
+                <div class="dato-item">
+                    <label>Ingresos Mensuales:</label>
+                    <span>${{ solicitud['ingresos_men'] }}</span>
+                </div>
+                <div class="dato-item">
+                    <label>Ocupación:</label>
+                    <span>{{ solicitud['ocupacion'] }}</span>
+                </div>
+                <div class="dato-item">
+                    <label>Tarjeta Asignada:</label>
+                    <span>{{ solicitud['numtaj'] }}</span>
+                </div>
+                <div class="dato-item">
+                    <label>Fecha de Vencimiento:</label>
+                    <span>{{ solicitud['fechavenc'] }}</span>
+                </div>
+                {% if usuario %}
+                <div class="dato-item">
+                    <label>CURP:</label>
+                    <span>{{ usuario['curp'] }}</span>
+                </div>
+                <div class="dato-item">
+                    <label>Dirección:</label>
+                    <span>{{ usuario['calle'] }} #{{ usuario['numcalle'] }}, {{ usuario['colonia'] }}</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <form action="{{ url_for('tdc_apro_detalle', id_usr=solicitud['ID']) }}" method="POST" class="form-decision">
+            <div class="input-group">
+                <label for="razon">Razón del dictamen:</label>
+                <input type="text" id="razon" name="razon" placeholder="Ingrese el motivo de la decisión" required autofocus>
+            </div>
+
+            <div class="acciones-btns">
+                <button type="submit" name="decision" value="a" class="btn-aprobar">Aprobar Solicitud</button>
+                <button type="submit" name="decision" value="r" class="btn-rechazar">Rechazar Solicitud</button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo de Empleados
+    </footer>
+</body>
+</html>

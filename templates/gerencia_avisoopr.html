@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Confirmación Operador - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo_header {
+            width: 150px;
+        }
+        main {
+            max-width: 600px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+            width: 100%;
+            flex: 1;
+        }
+        .card-aviso {
+            background-color: #ffffff;
+            border-top: 6px solid #28a745;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .card-aviso h1 {
+            color: #004481;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .card-aviso p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .btn-primary {
+            background-color: #004481;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0a7adc;
+        }
+        .btn-secondary {
+            background-color: #e9ecef;
+            color: #004481;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #dee2e6;
+        }
+        footer {
+            background-color: #004481;
+            color: #f4f7f6;
+            font-size: 0.85rem;
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+    </header>
+
+    <main>
+        <div class="card-aviso">
+            <h1>¡Operador Registrado!</h1>
+            <p>El operador ha sido dado de alta correctamente en el módulo administrativo. Sus accesos operativos han sido habilitados en el sistema.</p>
+            <div class="btn-group">
+                <a href="{{ url_for('gerencia_operadores') }}" class="btn-secondary">Registrar otro</a>
+                <a href="{{ url_for('dashboard_admin') }}" class="btn-primary">Volver al Menú</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+    </footer>
+</body>
+</html>

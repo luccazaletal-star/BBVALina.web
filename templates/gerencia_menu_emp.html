@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Gerencia de Empleados - BBVA LINA</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: #f4f7f6; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: #ffffff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .logo_header { width: 150px; }
+        .btn-volver { background-color: #004481; color: #ffffff; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem; }
+        .btn-volver:hover { background-color: #0a7adc; }
+        main { max-width: 600px; margin: 4rem auto; padding: 0 1rem; width: 100%; flex: 1; text-align: center; }
+        h1 { color: #004481; font-size: 1.8rem; margin-bottom: 2rem; }
+        .menu-container { display: flex; flex-direction: column; gap: 1.2rem; }
+        .btn-option { background-color: #ffffff; border: 2px solid #004481; color: #004481; text-decoration: none; padding: 1.2rem; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+        .btn-option:hover { background-color: #004481; color: #ffffff; transform: translateY(-2px); }
+        .btn-danger-option { border-color: #dc3545; color: #dc3545; }
+        .btn-danger-option:hover { background-color: #dc3545; color: #ffffff; }
+        footer { background-color: #004481; color: #f4f7f6; font-size: 0.85rem; padding: 1.5rem; text-align: center; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <a href="{{ url_for('dashboard_empleado') }}" class="btn-volver">Volver al Menú</a>
+    </header>
+
+    <main>
+        <h1>Portal Gerencial - Empleados</h1>
+        <div class="menu-container">
+            <a href="{{ url_for('gerencia_alta_emp') }}" class="btn-option">Dar de Alta Empleado</a>
+            <a href="{{ url_for('gerencia_baja_emp') }}" class="btn-option btn-danger-option">Dar de Baja Empleado</a>
+        </div>
+    </main>
+
+    <footer>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integrado
+    </footer>
+</body>
+</html>

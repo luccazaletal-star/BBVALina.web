@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Detalle de Cuenta - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #ffffff;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .logo_header {
+            text-align: left;
+            width: 150px;
+            margin: 0;
+        }
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
+            margin-left: 8px;
+        }
+        .btn-volver:hover {
+            background-color: #004481;
+        }
+        .banner {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .banner-anuncio {
+            background-color: rgba(0, 68, 129, 0.9);
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+        }
+        .textstyle-anuncio h1 {
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        .banner-titulo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #004481;
+            margin-bottom: 1rem;
+        }
+        .lista-movimientos {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+        .movimiento-banner {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #004481; 
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: flex-start;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            position: relative;
+        }
+        .movimiento-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+        .movimiento-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 6px;
+        }
+        .movimiento-titulo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #004481;
+        }
+        .movimiento-concepto {
+            font-size: 0.95rem;
+            color: #4a5568;
+            margin: 0;
+        }
+        .dato-oculto {
+            letter-spacing: 2px;
+            color: #718096;
+            font-weight: 600;
+        }
+        .dato-real {
+            font-weight: 600;
+            color: #1a202c;
+        }
+        .btn-revelar {
+            background-color: #004481;
+            color: #ffffff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-revelar:hover {
+            background-color: #0a7adc;
+        }
+        .btn-revelar:active {
+            transform: scale(0.98);
+        }
+        .sin-movimientos {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+        }
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 1rem;
+            margin: 1rem auto;
+            max-width: 900px;
+            border-radius: 6px;
+        }
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            margin-top: auto;
+            background: #004481;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo_header" src="{{ url_for('static', filename='img/BBVALINAGOLD.png') }}" alt="Logo BBVA LINA">
+        <div>
+            <a href="{{ url_for('menu_roles') }}" class="btn-volver">Volver a BBVA LINA</a>
+            <a href="{{ url_for('consultar_cuentasemp') }}" class="btn-volver">Nueva Consulta</a>
+            <a href="{{url_for('dashboard_empleado')}}" class="btn-volver">Volver</a>
+        </div>
+    </header>
+
+    <main>
+        {% if error %}
+            <div class="alert-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <section class="banner">
+            <div class="banner-anuncio">
+                <div class="textstyle-anuncio">
+                    <h1>Aviso de Confidencialidad y Protección de Datos: La consulta de información de cuentas está sujeta al secreto bancario y a la normatividad de protección de datos personales. Este espacio debe ser utilizado exclusivamente para fines de atención, verificación o soporte autorizado. Cualquier consulta injustificada, extracción de datos o uso no autorizado de la información de los clientes será sujeta a auditoría estricta, derivando en responsabilidades administrativas, legales y laborales.</h1>
+                </div>
+            </div>
+
+            <div class="banner2">
+                <h2 class="banner-titulo">INFORMACIÓN DE LA CUENTA</h2>
+                <div class="lista-movimientos">
+                    {% if usuario %}
+                        <div class="movimiento-banner">
+                            <div class="movimiento-info">
+                                <div class="movimiento-header">
+                                    <h3 class="movimiento-titulo">{{ usuario.nombre }}</h3>
+                                    <button type="button" id="btn-revelar-datos" class="btn-revelar" onclick="toggleDatosSensibles()" data-mostrando="false">
+                                         Mostrar datos sensibles
+                                    </button>
+                                </div>
+
+                                <p class="movimiento-concepto"><strong>ID Cliente:</strong> {{ usuario.id }}</p>
+
+
+                                <p class="movimiento-concepto">
+                                    <strong>No. Tarjeta:</strong> 
+                                    <span class="dato-oculto">•••• •••• •••• {{ usuario.tarjetanum[-4:] if usuario.tarjetanum and usuario.tarjetanum|length >= 4 else '••••' }}</span>
+                                    <span class="dato-real" style="display: none;">{{ usuario.tarjetanum }}</span>
+                                </p>
+
+                                <p class="movimiento-concepto">
+                                    <strong>Fecha vencimiento:</strong> 
+                                    <span class="dato-oculto">••/••</span>
+                                    <span class="dato-real" style="display: none;">{{ usuario.fechavenc }}</span>
+                                </p>
+
+                                <p class="movimiento-concepto">
+                                    <strong>CLABE:</strong> 
+                                    <span class="dato-oculto">••••••••••••••••••</span>
+                                    <span class="dato-real" style="display: none;">{{ usuario.clabe }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="sin-movimientos">No se encontraron datos registrados para esta cuenta.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BBVA LINA - Sistema de Gestión Bancaria</p>
+    </footer>
+
+    <script>
+        function toggleDatosSensibles() {
+            const ocultos = document.querySelectorAll('.dato-oculto');
+            const reales = document.querySelectorAll('.dato-real');
+            const btn = document.getElementById('btn-revelar-datos');
+
+            let mostrando = btn.getAttribute('data-mostrando') === 'true';
+
+            if (mostrando) {
+                ocultos.forEach(el => el.style.display = 'inline');
+                reales.forEach(el => el.style.display = 'none');
+                btn.innerHTML = 'Mostrar datos sensibles';
+                btn.setAttribute('data-mostrando', 'false');
+            } else {
+                ocultos.forEach(el => el.style.display = 'none');
+                reales.forEach(el => el.style.display = 'inline');
+                btn.innerHTML = 'Ocultar datos sensibles';
+                btn.setAttribute('data-mostrando', 'true');
+            }
+        }
+    </script>
+</body>
+</html>

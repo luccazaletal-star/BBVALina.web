@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #ffffff; 
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .logo_header {
+            width: 140px;
+            object-fit: contain;
+        }
+
+        main {
+            margin: 1rem auto 3rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+            flex-grow: 1;
+        }
+
+
+        .banner_lina {
+            background-color: #ffffff;
+            color: #004481;
+            padding: 3rem;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .banner-grid {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .banner-grid.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .banner-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .banner-text h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #004481;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .banner-text p {
+            font-size: 0.95krem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .banner-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 280px;
+        }
+
+        .banner-image img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .btn-volver {
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .btn-volver:hover {
+            background-color: #004481;
+        }
+
+        .conocer_mas {
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s ease;
+            display: inline-block;
+        }
+
+        .conocer_mas:hover {
+            background-color: #004481;
+        }
+
+        .conocer {
+            background-color: #f4f7f6;
+            color: #004481;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: background 0.2s ease;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .conocer:hover {
+            background-color: #e2e8f0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            background: #004481;
+            margin-top: auto;
+        }
+        .input-style{
+            background-color: #ffffff;
+            color: #004481;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .btn-bbva{
+            background-color: #004481;
+            color: #f4f7f6;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 2rem;
+            border: 0px solid #ffffff;
+            padding: 5px;
+            transition: background 0.5s ease;
+        }
+        .btn-bbva:hover{
+            background-color: #0a7adc;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+        <div>
+            <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="banner_lina">
+            <div class="banner-grid">
+                <div class="banner-text">
+                    <h1>¡Tenemos excelentes noticias para ti!</h1>
+                    <p>Hemos estimado una línea de {{session['saldo_favor']}} sujeta a una validación final en un plazo de 24 a 48 horas. ¿Deseas iniciar el trámite de tu tarjeta ahora?</p>
+                    <div>
+                        <a href="{{url_for('tdc_fin')}}" class="btn-volver">Iniciar tramite</a>
+                        <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </section> 
+    </main>
+
+    <footer>
+        <div>
+            BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+        </div>
+    </footer>
+
+</body>
+</html>

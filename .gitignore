@@ -1,0 +1,6 @@
+__pycache__/ 
+*.pyc
+bdd_usr.db 
+bdd_empl.db 
+bdd_trans.db 
+bdd_oper.db

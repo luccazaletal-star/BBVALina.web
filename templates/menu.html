@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>Portal Multirrol - BBVA LINA</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #ffffff; 
+            color: white;
+            padding: 0rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 1.5rem;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        header h1 span {
+            color: #28a745; 
+            font-weight: 800;
+        }
+        .btn-salir {
+            background-color: #d9534f;
+            color: white;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+            margin-left: 20px;
+        }
+
+        .btn-salir:hover {
+            background-color: #c9302c;
+        }
+        
+        .btn-crear_cuenta{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+        }
+
+        .btn-crear_cuenta:hover{
+            background-color: #004481;
+        }
+        .btn-acceder{
+            background-color: #f4f7f6;
+            color: #004481;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+        }
+
+        .btn-acceder:hover{
+            background-color: #ffffff;
+        }
+        main {
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            color: #ffffff;
+            font-size: 0.85rem;
+            border-top: 1px solid #e1e8ed;
+            background: #004481;
+        }
+        .logo_header {text-align: left;
+            width: 150px;
+            margin: 0%;}
+        .banner_lina{text-align: left;
+            font-family: 'Plus Jakarta Sans', 'Benton Sans', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            color: #004481;
+            padding: 2rem 2rem;
+            margin-top: 30px;
+            margin-bottom: 60px;
+            margin-left: 0.5cm;
+            margin-right: 0.5cm;
+            gap: 2rem;
+        }
+        .banner_img1 img{width: 100%;
+            max-width: 600px;
+            height: 350px;
+            object-fit: cover;
+        }
+        .banner_img2 img{width: 100%;
+            max-width: 600px;
+            padding-left: 4.7rem;
+            height: 350px;
+            object-fit: cover;
+        }
+        .conocer_mas{
+            background-color: #0a7adc;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 2s ease;
+            display: inline-block;
+            margin-top: 50px;
+        }
+
+        .conocer_mas:hover{
+            background-color: #004481;
+        }
+        .banner{
+            text-align: left;
+        }
+        .conocer{
+            background-color: #004481;
+            color: #f4f7f6;
+            text-decoration: none;
+            padding: 0.6rem 2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 1s ease;
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .conocer:hover{
+            background-color: #0a7adc;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
+        <div>
+            <a href="{{url_for('login_cliente')}}" class="btn-acceder">Acceder</a>
+            <a href="{{url_for('crear_cuenta')}}" class="btn-crear_cuenta">Hazte Cliente</a>
+            <a href="{{ url_for('salir') }}" class="btn-salir">Cerrar Sesión</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="banner_lina">
+            <div class="banner_texto">
+                <h1>Una tarjeta para abrir caminos en todo México</h1>
+                <p>¡Sin importar la distancia tu banca digital llega a donde estés!</p>
+                <a href="{{url_for('crear_cuenta')}}" class="conocer_mas">Conoce más</a>
+            </div>
+            <div class="banner_img1">
+                <img src="{{url_for('static', filename='img/bbvalinatarjeta.png')}}" alt="Tarjeta platino LINA">
+            </div>
+        </section>
+        <section class="banner_lina">
+            <div class="banner_img2">
+                <img src="{{url_for('static', filename='img/bbvapago.png')}}" alt="Señora pagando con tarjeta TOMIN">
+            </div>
+            <div class="banner_texto">
+                <h1>Haz rendir tu trabajo con la tarjeta TOMIN</h1>
+                <p>Financiamiento seguro y sin letras chiquitas</p>
+                <a href="{{url_for('login_cliente')}}" class="conocer_mas">Conoce más</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="{{url_for('login_empleado')}}" class="conocer">Portal de Empleados</a>
+        <a href="{{url_for('login_admin')}}" class="conocer">Portal Administrativo</a>
+        <a href="{{url_for('login_operador')}}" class="conocer">Portal de Operadores</a>
+        <div>
+        BBVA LINA System &copy; 2026 - Módulo Administrativo Integral
+        </div>
+    </footer>
+
+</body>
+</html>
