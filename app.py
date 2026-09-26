@@ -1,9 +1,13 @@
 import os
 import sqlite3
 import libsql_experimental as libsql
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, g
 import random
 import datetime
+
+app = Flask(__name__)
+app.secret_key = 'clave_super_secreta_bbva_lina'
+LLAVE_CORRECTA = 'LINA2026'
 
 TURSO_TOKEN = os.environ.get("TURSO_AUTH_TOKEN", "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJrUXJJVTdsYkVmR0R1MDdXRWFlUHR3Iiwib3JnX2lkIjoxMDAwMjU0OTI1fQ.99DQb5qxBvVo89tLkDMp5rNocpjQ9IJYQtyIZ3hQs3NEIIJ5e7aXovy6HVDM59iKWgrdRjYAtooIYAkn0dWBBg")
 
@@ -17,23 +21,40 @@ def connect_db(env_var_name, local_file):
     return conn
 
 def get_db_usr():
-    return connect_db("TURSO_USR_URL", "bdd_usr.db")
+    if 'db_usr' not in g:
+        g.db_usr = connect_db("TURSO_USR_URL", "bdd_usr.db")
+    return g.db_usr
 
 def get_db_trans():
-    return connect_db("TURSO_TRANS_URL", "bdd_trans.db")
+    if 'db_trans' not in g:
+        g.db_trans = connect_db("TURSO_TRANS_URL", "bdd_trans.db")
+    return g.db_trans
 
 def get_db_oper():
-    return connect_db("TURSO_OPER_URL", "bdd_oper.db")
+    if 'db_oper' not in g:
+        g.db_oper = connect_db("TURSO_OPER_URL", "bdd_oper.db")
+    return g.db_oper
 
 def get_db_empl():
-    return connect_db("TURSO_EMPL_URL", "bdd_empl.db")
+    if 'db_empl' not in g:
+        g.db_empl = connect_db("TURSO_EMPL_URL", "bdd_empl.db")
+    return g.db_empl
 
 def get_db_admin():
-    return connect_db("TURSO_ADMIN_URL", "bdd_admin.db")
+    if 'db_admin' not in g:
+        g.db_admin = connect_db("TURSO_ADMIN_URL", "bdd_admin.db")
+    return g.db_admin
+
+@app.teardown_appcontext
+def close_dbs(exception):
+    for db_key in ['db_usr', 'db_trans', 'db_oper', 'db_empl', 'db_admin']:
+        db = g.pop(db_key, None)
+        if db is not None:
+            db.close()
 
 def init_db():
     try:
-        conn_usr = get_db_usr()
+        conn_usr = connect_db("TURSO_USR_URL", "bdd_usr.db")
         cursor_usr = conn_usr.cursor()
         cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_usr(ID TEXT PRIMARY KEY, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT, edad INTEGER, curp TEXT, calle TEXT, numcalle TEXT, colonia TEXT, ciudad TEXT, estado TEXT, CP TEXT, detalles TEXT, saldo REAL)")
         cursor_usr.execute("CREATE TABLE IF NOT EXISTS tabla_tar_usr(numtaj TEXT, fechavenc TEXT, cvv TEXT, clabe TEXT, saldo REAL, ID TEXT)")
@@ -41,27 +62,27 @@ def init_db():
         conn_usr.commit()
         conn_usr.close()
 
-        conn_empl = get_db_empl()
+        conn_empl = connect_db("TURSO_EMPL_URL", "bdd_empl.db")
         cursor_empl = conn_empl.cursor()
         cursor_empl.execute("CREATE TABLE IF NOT EXISTS tabla_emp(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT)")
         cursor_empl.execute("CREATE TABLE IF NOT EXISTS tabla_tdc_emp(ID TEXT, nombre_compl TEXT, ingresos_men TEXT, ocupacion TEXT, numtaj TEXT, fechavenc TEXT, credito REAL, status TEXT, razon TEXT)")
         conn_empl.commit()
         conn_empl.close()
 
-        conn_trans = get_db_trans()
+        conn_trans = connect_db("TURSO_TRANS_URL", "bdd_trans.db")
         cursor_trans = conn_trans.cursor()
         cursor_trans.execute("CREATE TABLE IF NOT EXISTS tabla_trans(ID TEXT, transmont REAL, transdest TEXT, transfech TEXT, transconc TEXT)")
         conn_trans.commit()
         conn_trans.close()
 
-        conn_oper = get_db_oper()
+        conn_oper = connect_db("TURSO_OPER_URL", "bdd_oper.db")
         cursor_oper = conn_oper.cursor()
         cursor_oper.execute("CREATE TABLE IF NOT EXISTS tabla_oper(calle TEXT, numcalle TEXT, colonia TEXT, ciudad TEXT, estado TEXT, CP TEXT, detalles TEXT, nombre_cli TEXT)")
         cursor_oper.execute("CREATE TABLE IF NOT EXISTS tabla_oper_id(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT, empresa TEXT)")
         conn_oper.commit()
         conn_oper.close()
 
-        conn_admin = get_db_admin()
+        conn_admin = connect_db("TURSO_ADMIN_URL", "bdd_admin.db")
         cursor_admin = conn_admin.cursor()
         cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_admin(ID TEXT, contr TEXT, nombre TEXT, apellidopat TEXT, apellidomat TEXT)")
         cursor_admin.execute("CREATE TABLE IF NOT EXISTS reg_ger_emp(ID TEXT, contr TEXT, nombre_compl TEXT)")
@@ -69,9 +90,9 @@ def init_db():
         conn_admin.commit()
         conn_admin.close()
 
-        print("Tablas verificadas e inicializadas correctamente.")
+        print("Bases de datos verificadas con éxito.")
     except Exception as e:
-        print(f"Advertencia al inicializar tablas: {e}")
+        print(f"Error inicializando tablas: {e}")
 
 init_db()
 
