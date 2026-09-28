@@ -1789,7 +1789,6 @@ def gerencia_aviso_alta_emp():
         return redirect(url_for('login_empleadoger'))
     return render_template('gerencia_aviso_alta_emp.html')
 
-
 @app.route('/gerencia/empleados/baja', methods=['GET', 'POST'])
 def gerencia_baja_emp():
     if not session.get('autorizado'):
@@ -1799,33 +1798,27 @@ def gerencia_baja_emp():
 
     error = None
     exito = None
+    conn_empl = get_db_empl() 
 
-    if request.method == 'POST':
-        emp_baja = request.form.get('id_emp_baja', '').strip().upper()
+    try:
+        if request.method == 'POST':
+            emp_baja = request.form.get('id_emp_baja', '').strip().upper()
 
-        if not emp_baja:
-            error = "Debe ingresar o seleccionar un ID de empleado."
-        else:
-            conn_empl = get_db_empl()
-            try:
-                cursor_empl = conn_empl.cursor()
-                cursor_empl.execute("SELECT * FROM tabla_emp WHERE ID=?", (emp_baja,))
-                check_emp = cursor_empl.fetchone()
-
-                if not check_emp:
+            if not emp_baja:
+                error = "Debe ingresar o seleccionar un ID de empleado."
+            else:
+                res_check = conn_empl.execute("SELECT * FROM tabla_emp WHERE ID = ?", [emp_baja])
+                
+                if not res_check.rows:
                     error = f"El empleado con ID '{emp_baja}' no existe."
                 else:
-                    cursor_empl.execute("DELETE FROM tabla_emp WHERE ID=?", (emp_baja,))
-                    conn_empl.commit()
-                    exito = f"El empleado {check_emp['nombre']} {check_emp['apellidopat']} ({emp_baja}) ha sido dado de baja."
-            finally:
-                conn_empl.close()
+                    emp = res_check.rows[0]
+                    conn_empl.execute("DELETE FROM tabla_emp WHERE ID = ?", [emp_baja])
+                    exito = f"El empleado con ID ({emp_baja}) ha sido dado de baja."
 
-    conn_empl = get_db_empl()
-    try:
-        cursor_empl = conn_empl.cursor()
-        cursor_empl.execute("SELECT * FROM tabla_emp")
-        lista_empleados = cursor_empl.fetchall()
+        res_list = conn_empl.execute("SELECT * FROM tabla_emp")
+        lista_empleados = res_list.rows
+
     finally:
         conn_empl.close()
 
@@ -1936,7 +1929,6 @@ def portal_ger_operador():
         return redirect(url_for('login_operadorger'))
     return render_template('gerencia_menu_oper.html')
 
-
 @app.route('/gerencia/operadores/alta', methods=['GET', 'POST'])
 def gerencia_alta_oper():
     if not session.get('autorizado'):
@@ -1985,7 +1977,6 @@ def gerencia_aviso_alta_oper():
     error = None
     return render_template('gerencia_aviso_alta_oper.html')
 
-
 @app.route('/gerencia/operadores/baja', methods=['GET', 'POST'])
 def gerencia_baja_oper():
     if not session.get('autorizado'):
@@ -1994,33 +1985,27 @@ def gerencia_baja_oper():
         return redirect(url_for('login_operadorger'))
     error = None
     exito = None
+    conn_empl = get_db_oper() 
 
-    if request.method == 'POST':
-        emp_baja = request.form.get('id_emp_baja', '').strip().upper()
+    try:
+        if request.method == 'POST':
+            emp_baja = request.form.get('id_emp_baja', '').strip().upper()
 
-        if not emp_baja:
-            error = "Debe ingresar o seleccionar un ID de empleado."
-        else:
-            conn_empl = get_db_oper()
-            try:
-                cursor_empl = conn_empl.cursor()
-                cursor_empl.execute("SELECT * FROM tabla_oper_id WHERE ID=?", (emp_baja,))
-                check_emp = cursor_empl.fetchone()
-
-                if not check_emp:
+            if not emp_baja:
+                error = "Debe ingresar o seleccionar un ID de operador."
+            else:
+                res_check = conn_empl.execute("SELECT * FROM tabla_oper_id WHERE ID = ?", [emp_baja])
+                
+                if not res_check.rows:
                     error = f"El empleado con ID '{emp_baja}' no existe."
                 else:
-                    cursor_empl.execute("DELETE FROM tabla_oper_id WHERE ID=?", (emp_baja,))
-                    conn_empl.commit()
-                    exito = f"El empleado {check_emp['nombre']} {check_emp['apellidopat']} ({emp_baja}) ha sido dado de baja."
-            finally:
-                conn_empl.close()
+                    emp = res_check.rows[0]
+                    conn_empl.execute("DELETE FROM tabla_emp WHERE ID = ?", [emp_baja])
+                    exito = f"El empleado con ID ({emp_baja}) ha sido dado de baja."
 
-    conn_empl = get_db_oper()
-    try:
-        cursor_empl = conn_empl.cursor()
-        cursor_empl.execute("SELECT * FROM tabla_oper_id")
-        lista_empleados = cursor_empl.fetchall()
+        res_list = conn_empl.execute("SELECT * FROM tabla_oper_id")
+        lista_empleados = res_list.rows
+
     finally:
         conn_empl.close()
 
