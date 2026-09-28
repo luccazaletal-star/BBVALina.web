@@ -1666,7 +1666,9 @@ def tdc_apro_detalle(id_usr):
                 if sts_emp_tdc=="a":
                     exists=2
                 elif decision=="r":
-                    exists==3
+                    exists=3
+                else:
+                    exists=1
                 cursor_usr.execute("UPDATE tabla_tdc_usr SET exist=? WHERE ID=?", (exists, id_usr))
                 conn_usr.commit()
 
