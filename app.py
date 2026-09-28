@@ -2022,6 +2022,6 @@ def gerencia_baja_oper():
     finally:
         conn_empl.close()
 
-    return render_template('gerencia_baja_emp.html', empleados=lista_empleados, error=error, exito=exito)
+    return render_template('gerencia_baja_oper.html', empleados=lista_empleados, error=error, exito=exito)
 if __name__ == '__main__':
     app.run(debug=True)
