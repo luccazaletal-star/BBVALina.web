@@ -2016,7 +2016,7 @@ def gerencia_baja_oper():
                     
                     exito = f"El operador {nombre} {apellido} ({emp_baja}) ha sido dado de baja."
 
-        cursor_empl.execute("SELECT * FROM tabla_emp")
+        cursor_empl.execute("SELECT * FROM tabla_oper_id")
         lista_empleados = cursor_empl.fetchall()
 
     finally:
