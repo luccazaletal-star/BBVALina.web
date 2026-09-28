@@ -1459,7 +1459,6 @@ def moneytool_datos():
 
     return render_template('moneytool_datos.html', error=error)
 
-
 @app.route('/admin/moneytool_aviso', methods=['GET', 'POST'])
 def moneytool_aviso():
     if not session.get('autorizado'):
