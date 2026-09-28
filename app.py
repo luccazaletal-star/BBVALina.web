@@ -1663,9 +1663,9 @@ def tdc_apro_detalle(id_usr):
             try:
                 cursor_usr = conn_usr.cursor()
                 cursor_empl = conn_empl.cursor()
-                if sts_emp_tdc=="Aprobada":
+                if sts_emp_tdc=="a":
                     exists=2
-                elif sts_emp_tdc=="Rechazada":
+                elif decision=="r":
                     exists==3
                 cursor_usr.execute("UPDATE tabla_tdc_usr SET exist=? WHERE ID=?", (exists, id_usr))
                 conn_usr.commit()
