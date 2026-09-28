@@ -182,21 +182,6 @@
         .btn-bbva:hover{
             background-color: #0a7adc;
         }
-
-        @media (max-width: 600px) {
-            header{
-                flex-wrap: wrap;
-                gap: 0.6rem;
-                padding: 0.8rem 1rem;
-                margin: 1rem;
-            }
-            .banner_lina{
-                padding: 1.5rem;
-            }
-            .banner-text h1{
-                font-size: 1.5rem;
-            }
-        }
     </style>
 </head>
 <body>
@@ -205,6 +190,7 @@
         <img class="logo_header" src="{{url_for('static',filename='img/BBVALINAGOLD.png')}}" alt="Logo BBVA LINA">
         <div>
             <a href="{{url_for('menu_roles')}}" class="btn-volver">Volver a BBVA LINA</a>
+            <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Volver</a>
         </div>
     </header>
 
@@ -212,15 +198,51 @@
         <section class="banner_lina">
             <div class="banner-grid">
                 <div class="banner-text">
-                    <h1>¡Tenemos excelentes noticias para ti!</h1>
-                    <p>Hemos estimado una línea de {{session['saldo_favor']}} sujeta a una validación final en un plazo de 24 a 48 horas. ¿Deseas iniciar el trámite de tu tarjeta ahora?</p>
-                    <div>
-                        <a href="{{url_for('tdc_fin')}}" class="btn-volver">Iniciar tramite</a>
-                        <a href="{{url_for('dashboard_cliente')}}" class="btn-volver">Cancelar</a>
-                    </div>
+                    <h1>¿Estás listo/a para tramitar tu nueva tarjeta de crédito?</h1>
+                    <p><strong>BBVA TOMIN</strong> es un proyecto simulado de desarrollo tecnológico y de inclusión financiera con fines académicos. Los productos, servicios, líneas de crédito y comisiones aquí descritos forman parte de una simulación de plataforma fintech y no constituyen una oferta real de contratación de servicios financieros regulados por la Comisión Nacional Bancaria y de Valores (CNBV) o el Banco de México.</p>
+                </div>
+                <div class="banner-image">
+                    <img src="{{url_for('static', filename='img/bbvatomin.jpg')}}" alt="Tarjeta dorada TOMIN">
                 </div>
             </div>
-        </section> 
+        </section>
+
+        <section class="banner_lina">
+            <div class="banner-grid reverse">
+                <div class="banner-text">
+                    <h1>¡Solicita tu credito!</h1>
+                    <form action="{{ url_for('tdc_cliente') }}" method="POST">
+
+                <div class="input-style">
+                    <label for="ingresos_usr">Ingrese sus ingresos mensuales aproximados </label>
+                    <input
+                    class="input"
+                    type="number" 
+                    id="ingresos_usr" 
+                    name="ingresos_usr" 
+                    placeholder="MXN" 
+                    required
+                    >
+                </div>
+                <div class="input-style">
+                    <label for="trabajo_usr">Ingrese su ocupacion </label>
+                    <select id="trabajo_usr" name="trabajo_usr" required>
+                        <option value="" disabled selected>Selecciona tu ocupación...</option>
+                        <option value="empleado">Empleado / Trabajador sector privado o público</option>
+                        <option value="independiente">Comerciante / Prestador de servicios independientes</option>
+                        <option value="profesionista">Profesionista independiente / Freelance</option>
+                        <option value="empresario">Empresario / Emprendedor / Socio</option>
+                        <option value="estudiante">Estudiante</option>
+                        <option value="hogar">Labor del hogar / Sin actividad económica directa</option>
+                        <option value="jubilado">Jubilado / Pensionado</option>
+                        <option value="desempleado">Desempleado</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-bbva">Enviar</button>
+                </form>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
